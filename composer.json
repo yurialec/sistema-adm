@@ -1,0 +1,17 @@
+{
+    "description": "Projeto ADM",
+    "authors": [
+        {
+            "name": "Yuri ALec",
+            "email": "yuri.alec@hotmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Core\\": "core",
+            "App\\": "app",
+            "Adms\\": "app/adms"
+        }
+    },
+    "require": {}
+}
