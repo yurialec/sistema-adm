@@ -2,21 +2,41 @@
 
 namespace Core;
 
-use Adms\Controllers\Login;
-use Adms\Controllers\Users;
+/**
+ * Recebe a URL e manipula
+ * Carregar a CONTROLLER
+ * @author Yuri <yuri.alec@hotmail.com>
+ * 
+ * https://www.php-fig.org/psr/
+ * https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc.md
+ * https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc-tags.md
+ */
 
 class ConfigController extends Config
 {
+    /** @var string $url Recebe a URL do .htaccess */
     private string $url;
+    /** @var array $urlArray Recebe a URL convertida para array */
     private array $urlArray;
+    /** @var string $urlController Recebe da URL o nome da controller */
     private string $urlController;
+    /** @var string $urlMetodo Recebe da URL o nome do método */
     private string $urlMetodo;
+    /** @var string $urlParamentro Recebe da URL o parâmetro */
     private string $urlParameter;
+    /** @var string $classLoad Controller que deve ser carregada */
     private string $classLoad;
+    /** @var array $format Recebe o array de caracteres especiais que devem ser substituido */
     private array $format;
+    /** @var string $urlSlugController Recebe o controller tratada */
     private string $urlSlugController;
+    /** @var string $urlSlugMetodo Recebe o metodo tratado */
     private string $urlSlugMetodo;
 
+    /**
+     * Recebe a URL do .htaccess
+     * Validar a URL
+     */
     public function __construct()
     {
         $this->configAdm();
@@ -54,6 +74,12 @@ class ConfigController extends Config
         echo "Paramentro: {$this->urlParameter} <br>";
     }
 
+    /**
+     * Método privado não pode ser instanciado fora da classe
+     * Limpara a URL, elimando as TAG, os espaços em brancos, retirar a barra no final da URL e retirar os caracteres especiais
+     *
+     * @return void
+     */
     private function clearUrl(): void
     {
         //Eliminar tags
@@ -70,24 +96,49 @@ class ConfigController extends Config
         $this->url = strtr(utf8_decode($this->url), utf8_decode($this->format['a']), $this->format['b']);
     }
 
+    /**
+     * Converter o valor obtido da URL "view-users" e converter no formato da classe "ViewUsers".
+     * Utilizado as funções para converter tudo para minúsculo, converter o traço pelo espaço, converter cada letra da primeira palavra para maiúsculo, retirar os espaços em branco
+     *
+     * @param string $slugController Nome da classe
+     * @return string Retorna a controller "view-users" convertido para o nome da Classe "ViewUsers"
+     */
     private function slugController($slugController): string
     {
         $this->urlSlugController = $slugController;
+        // Converter para minusculo
         $this->urlSlugController = strtolower($this->urlSlugController);
+        // Converter o traco para espaco em braco
         $this->urlSlugController = str_replace("-", " ", $this->urlSlugController);
+        // Converter a primeira letra de cada palavra para maiusculo
         $this->urlSlugController = ucwords($this->urlSlugController);
+        // Retirar espaco em branco  
         $this->urlSlugController = str_replace(" ", "", $this->urlSlugController);
         return $this->urlSlugController;
     }
 
+    /**
+     * Tratar o método
+     * Instanciar o método que trata a controller
+     * Converter a primeira letra para minusculo
+     *
+     * @param string $urlSlugMetodo
+     * @return string
+     */
     private function slugMetodo($urlSlugMetodo): string
     {
         $this->urlSlugMetodo = $this->slugController($urlSlugMetodo);
+        //Converter para minusculo a primeira letra
         $this->urlSlugMetodo = lcfirst($this->urlSlugMetodo);
-        var_dump($this->urlSlugMetodo);
         return $this->urlSlugMetodo;
     }
 
+    /**
+     * Carregar as Controllers
+     * Instanciar as classes da controller e carregar o método 
+     *
+     * @return void
+     */
     public function loadPage(): void
     {
         $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;

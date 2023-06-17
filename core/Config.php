@@ -2,6 +2,9 @@
 
 namespace Core;
 
+/**
+ * Variáveis Globais
+ */
 abstract class Config
 {
     protected function configAdm()
@@ -12,5 +15,7 @@ abstract class Config
         define('CONTROLLER', 'Login');
         define('METODO', 'index');
         define('CONTROLLERERRO', 'Login');
+
+        define('EMAILADM', 'yuri.alec@hotmail.com');
     }
 }
