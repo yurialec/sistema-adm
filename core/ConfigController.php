@@ -69,9 +69,6 @@ class ConfigController extends Config
             $this->urlMetodo = $this->slugMetodo(METODO);
             $this->urlParameter = "";
         }
-        echo "Controller: {$this->urlController} <br>";
-        echo "Metodo: {$this->urlMetodo} <br>";
-        echo "Paramentro: {$this->urlParameter} <br>";
     }
 
     /**

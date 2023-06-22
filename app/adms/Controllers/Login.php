@@ -13,7 +13,14 @@ class Login
     /**
      * @var array|string|null $data Recebe os dados que devem ser enviados para a view
      */
-    private array|string|null $data;
+    private array|string|null $data = [];
+
+    /**
+     * $dataForm recebe os dados do formulário
+     *
+     * @var array
+     */
+    private array|null $dataForm;
 
     /**
      * Metodo Login
@@ -22,9 +29,11 @@ class Login
      */
     public function index(): void
     {
-        echo "Pagina de Login<br>";
+        $this->dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        $this->data = null;
+        if (!empty($this->dataForm['SendLogin'])) {
+            $this->data['form'] = $this->dataForm; 
+        }
 
         $loadView = new ConfigView("adms/Views/Login/Login", $this->data);
         $loadView->loadView();
