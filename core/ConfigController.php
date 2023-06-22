@@ -138,8 +138,11 @@ class ConfigController extends Config
      */
     public function loadPage(): void
     {
-        $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
-        $classPage = new $this->classLoad();
-        $classPage->{$this->urlMetodo}();
+        // $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
+        // $classPage = new $this->classLoad();
+        // $classPage->{$this->urlMetodo}();
+
+        $loadPgAdm = new LoadPgAdm();
+        $loadPgAdm->loadingPage($this->urlController, $this->urlMetodo, $this->urlParameter);
     }
 }

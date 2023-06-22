@@ -27,7 +27,7 @@ abstract class AdmsConn
             $this->connect = new PDO("mysql:host={$this->host};port={$this->port};dbname=" . $this->dbname, $this->user, $this->pass);
             return $this->connect;
         } catch (Exception $err) {
-            die("Erro - 002: Por favor tente novamente. Caso o problema persista, entre
+            die("Erro 001: Por favor tente novamente. Caso o problema persista, entre
                 em contato com o administrador " . EMAILADM);
         }
     }

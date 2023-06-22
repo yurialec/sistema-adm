@@ -1,6 +1,6 @@
 <?php
 
 echo "VIEW - Dashboard<br>";
-echo "Bem vindo " . $_SESSION['user_name'] . "<br>";
+echo "Bem vindo " . "<strong>" . $_SESSION['user_name'] . "</strong>" . "<br>";
 
 echo "<a href='" . URLADM . "'>Sair</a>";

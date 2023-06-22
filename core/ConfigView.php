@@ -16,7 +16,7 @@ class ConfigView
         if (file_exists('app/' . $this->nameView . '.php')) {
             include 'app/' . $this->nameView . '.php';
         } else {
-            die("Erro: Por favor tente novamente. Caso o problema persista, entre
+            die("Erro 002: Por favor tente novamente. Caso o problema persista, entre
                 em contato com o administrador " . EMAILADM);
         }
     }
