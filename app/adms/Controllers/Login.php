@@ -2,6 +2,7 @@
 
 namespace App\adms\Controllers;
 
+use App\adms\Models\AdmsLogin;
 use Core\ConfigView;
 
 /**
@@ -32,7 +33,15 @@ class Login
         $this->dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
         if (!empty($this->dataForm['SendLogin'])) {
-            $this->data['form'] = $this->dataForm; 
+            $valLogin = new AdmsLogin();
+            $valLogin->login($this->dataForm);
+
+            if ($valLogin->getResult()) {
+                $urlRedirect = URLADM . "dashboard/index";
+                header("Location: $urlRedirect");
+            } else {
+                $this->data['form'] = $this->dataForm;
+            }
         }
 
         $loadView = new ConfigView("adms/Views/Login/Login", $this->data);

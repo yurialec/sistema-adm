@@ -16,6 +16,12 @@ abstract class Config
         define('METODO', 'index');
         define('CONTROLLERERRO', 'Login');
 
+        define('HOST', 'localhost');
+        define('USER', 'root');
+        define('PASS', '');
+        define('DBNAME', 'adm');
+        define('PORT', '3306');
+
         define('EMAILADM', 'yuri.alec@hotmail.com');
     }
 }
