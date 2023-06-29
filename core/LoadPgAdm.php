@@ -61,7 +61,7 @@ class LoadPgAdm
      */
     private function pgPublic(): void
     {
-        $this->listPgPublic = ["Login", "Erro"];
+        $this->listPgPublic = ["Login", "Erro", "Logout"];
 
         if (in_array($this->urlController, $this->listPgPublic)) {
             $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
