@@ -22,6 +22,10 @@ class LoadPgAdm
     private string $urlSlugController;
     /** @var string $urlSlugMetodo Recebe o metodo tratado */
     private string $urlSlugMetodo;
+    /** @var array $listPgPublic */
+    private array $listPgPublic;
+    /** @var array $listPgPrivate */
+    private array $listPgPrivate;
 
     public function loadingPage(string|null $urlController, string|null $urlMetodo, string|null $urlParameter): void
     {
@@ -29,7 +33,7 @@ class LoadPgAdm
         $this->urlMetodo = $urlMetodo;
         $this->urlParameter = $urlParameter;
 
-        $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
+        $this->pgPublic();
 
         if (class_exists($this->classLoad)) {
             $this->loadMetodo();
@@ -47,6 +51,47 @@ class LoadPgAdm
         } else {
             die("Erro 004: Por favor tente novamente. Caso o problema persista, entre
                 em contato com o administrador " . EMAILADM);
+        }
+    }
+
+    /**
+     * Metodo que verifica se a página é publica
+     *
+     * @return void
+     */
+    private function pgPublic(): void
+    {
+        $this->listPgPublic = ["Login", "Erro"];
+
+        if (in_array($this->urlController, $this->listPgPublic)) {
+            $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
+            $this->urlController;
+        } else {
+            $this->pgPrivate();
+        }
+    }
+
+    private function pgPrivate(): void
+    {
+        $this->listPgPrivate = ["Dashboard", "Users"];
+
+        if (in_array($this->urlController, $this->listPgPrivate)) {
+            $this->verifyLogin();
+        } else {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Página não encontrada</p>";
+            $urlRedirect = URLADM . "login/index";
+            header("Location: $urlRedirect");
+        }
+    }
+
+    private function verifyLogin(): void
+    {
+        if ((isset($_SESSION['user_id'])) and (isset($_SESSION['user_name'])) and (isset($_SESSION['user_email']))) {
+            $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
+        } else {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Para acessar a página, realize o login</p>";
+            $urlRedirect = URLADM . "login/index";
+            header("Location: $urlRedirect");
         }
     }
 
