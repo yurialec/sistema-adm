@@ -3,7 +3,7 @@
 namespace App\adms\Models;
 
 use App\adms\Models\Helper\AdmsConn;
-use PDO;
+use App\adms\Models\Helper\AdmsRead;
 
 class AdmsLogin extends AdmsConn
 {
@@ -20,19 +20,16 @@ class AdmsLogin extends AdmsConn
     public  function login(array $data = null)
     {
         $this->data = $data;
+        $viewUser = new AdmsRead();
 
-        $this->conn = $this->connectionDb();
+        //Retorna todas as colunas
+        // $viewUser->exeRead("adms_users", "WHERE user =:user LIMIT :limit", "user={$this->data['user']}&limit=1");
 
-        $query_val_login = "SELECT id, name, nick_name, email, password, image
-                                FROM adms_users
-                                WHERE user =:user
-                                LIMIT 1";
+        //Retorna somente as colunas indicadas
+        $viewUser->fullRead("SELECT id, name, nick_name, email, password, image 
+            FROM adms_users WHERE user =:user LIMIT :limit", "user={$this->data['user']}&limit=1");
 
-        $result_val_login = $this->conn->prepare($query_val_login);
-        $result_val_login->bindParam(':user', $this->data['user'], PDO::PARAM_STR);
-        $result_val_login->execute();
-
-        $this->resultDb = $result_val_login->fetch();
+        $this->resultDb = $viewUser->getResult();
 
         if ($this->resultDb) {
             $this->valPassword();
@@ -44,13 +41,13 @@ class AdmsLogin extends AdmsConn
 
     private function valPassword()
     {
-        if (password_verify($this->data['password'], $this->resultDb['password'])) {
+        if (password_verify($this->data['password'], $this->resultDb[0]['password'])) {
 
-            $_SESSION['user_id'] = $this->resultDb['id'];
-            $_SESSION['user_name'] = $this->resultDb['name'];
-            $_SESSION['user_nick_name'] = $this->resultDb['nick_name'];
-            $_SESSION['user_email'] = $this->resultDb['email'];
-            $_SESSION['user_image'] = $this->resultDb['image'];
+            $_SESSION['user_id'] = $this->resultDb[0]['id'];
+            $_SESSION['user_name'] = $this->resultDb[0]['name'];
+            $_SESSION['user_nick_name'] = $this->resultDb[0]['nick_name'];
+            $_SESSION['user_email'] = $this->resultDb[0]['email'];
+            $_SESSION['user_image'] = $this->resultDb[0]['image'];
 
             $this->result = true;
         } else {
