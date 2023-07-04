@@ -24,7 +24,7 @@ class Logout
             $_SESSION['user_email'],
             $_SESSION['user_image']
         );
-        $_SESSION['msg'] = "<p style='color: #33FF66;'>Logout realizado com sucesso</p>";
+        $_SESSION['msg'] = "<p style='color: #008000;'>Logout realizado com sucesso</p>";
         $urlRedirect = URLADM . "login/index";
         header("Location: $urlRedirect");
     }

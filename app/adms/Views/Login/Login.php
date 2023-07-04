@@ -10,12 +10,17 @@ if (isset($_SESSION['msg'])) {
     unset($_SESSION['msg']);
 }
 ?>
-<form method="POST" action="">
+
+<span id="msg"></span>
+
+<form method="POST" action="" id="form-login">
     <label>Usuário: </label>
     <input type="text" name="user" id="user" placeholder="Digite o susuário" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>">
     <br><br>
     <label>Senha: </label>
     <input type="password" name="password" id="password" placeholder="Digite a senha" value="<?php isset($valorForm['password']) ? printf($valorForm['password']) : null ?>">
     <br><br>
-    <input type="submit" name="SendLogin" value="Acessar">
+    <button type="submit" name="SendLogin" value="Acessar">Acessar</button>
 </form>
+<br>
+<p><a href="<?php echo URLADM ?>new-user/index">Cadastrar</a></p>
