@@ -7,6 +7,7 @@ use App\adms\Models\Helper\AdmsCreate;
 use App\adms\Models\Helper\AdmsValEmail;
 use App\adms\Models\Helper\AdmsValEmailSingle;
 use App\adms\Models\Helper\AdmsValEmptyField;
+use App\adms\Models\Helper\AdmsValPassword;
 
 class AdmsNewUser extends AdmsConn
 {
@@ -40,7 +41,10 @@ class AdmsNewUser extends AdmsConn
         $valEmailSingle = new AdmsValEmailSingle();
         $valEmailSingle->validateEmailSingle($this->data['email']);
 
-        if (($valEMail->getResult()) and ($valEmailSingle->getResult())) {
+        $valPassowrd = new AdmsValPassword();
+        $valPassowrd->validatePassword($this->data['password']);
+
+        if (($valEMail->getResult()) and ($valEmailSingle->getResult()) and ($valPassowrd->getResult())) {
             $this->add();
         } else {
             $this->result = false;

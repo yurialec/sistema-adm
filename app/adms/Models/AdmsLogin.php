@@ -27,7 +27,9 @@ class AdmsLogin extends AdmsConn
 
         //Retorna somente as colunas indicadas
         $viewUser->fullRead("SELECT id, name, nick_name, email, password, image 
-            FROM adms_users WHERE user =:user LIMIT :limit", "user={$this->data['user']}&limit=1");
+                                FROM adms_users
+                                WHERE user =:user OR email =:email LIMIT :limit",
+                                "user={$this->data['user']}&email={$this->data['email']}&limit=1");
 
         $this->resultDb = $viewUser->getResult();
 

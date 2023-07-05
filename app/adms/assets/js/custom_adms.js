@@ -27,6 +27,27 @@ if (formNewUser) {
             document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher o campo senha!</p>";
             return;
         }
+
+        // Verificar se o campo senha posui 6 caracteres
+        if (password.length < 6) {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: A senha deve ter no mínimo 06 caracteres!</p>";
+            return;
+        }
+
+        // Verificar se o campo senha não possui números repetidos
+        if (password.match(/([1-9]+)\1{1,}/)) {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: A senha não deve conter números repetidos!</p>";
+            return;
+        }
+
+        // Verificar se o campo senha possui letras
+        if (!password.match(/[A-Za-z]/)) {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: A senha deve conter pelo menos uma letra!</p>";
+            return;
+        }
     });
 }
 
