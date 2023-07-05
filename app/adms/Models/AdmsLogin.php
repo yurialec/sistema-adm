@@ -22,21 +22,39 @@ class AdmsLogin extends AdmsConn
         $this->data = $data;
         $viewUser = new AdmsRead();
 
-        //Retorna todas as colunas
-        // $viewUser->exeRead("adms_users", "WHERE user =:user LIMIT :limit", "user={$this->data['user']}&limit=1");
-
         //Retorna somente as colunas indicadas
-        $viewUser->fullRead("SELECT id, name, nick_name, email, password, image 
+        $viewUser->fullRead(
+            "SELECT id, name, nick_name, email, password, image, adms_sits_user_id
                                 FROM adms_users
                                 WHERE user =:user OR email =:email LIMIT :limit",
-                                "user={$this->data['user']}&email={$this->data['email']}&limit=1");
+            "user={$this->data['user']}&email={$this->data['user']}&limit=1"
+        );
 
         $this->resultDb = $viewUser->getResult();
 
         if ($this->resultDb) {
-            $this->valPassword();
+            $this->valEmailPermission();
         } else {
             $_SESSION['msg'] = "<p style='color: #f00;'>Erro! Usuário ou senha incorreta!<p>";
+            $this->result = false;
+        }
+    }
+
+    private function valEmailPermission(): void
+    {
+        if ($this->resultDb[0]['adms_sits_user_id'] == 1) {
+            $this->valPassword();
+        } elseif ($this->resultDb[0]['adms_sits_user_id'] == 3) {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro! Necessário confirmar o e-mail!<p>";
+            $this->result = false;
+        } elseif ($this->resultDb[0]['adms_sits_user_id'] == 5) {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro! E-mail descadastrado, por favor entre em contato com a empresa!<p>";
+            $this->result = false;
+        } elseif ($this->resultDb[0]['adms_sits_user_id'] == 2) {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro! E-mail inativo, por favor entre em contato com a empresa!<p>";
+            $this->result = false;
+        } else {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro! E-mail inativo, por favor entre em contato com a empres!<p>";
             $this->result = false;
         }
     }
