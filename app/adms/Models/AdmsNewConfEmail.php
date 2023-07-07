@@ -5,6 +5,7 @@ namespace App\adms\Models;
 use App\adms\Models\Helper\AdmsConn;
 use App\adms\Models\Helper\AdmsRead;
 use App\adms\Models\Helper\AdmsSendEmail;
+use App\adms\Models\Helper\AdmsUpdate;
 use App\adms\Models\Helper\AdmsValEmptyField;
 use PDO;
 
@@ -28,6 +29,8 @@ class AdmsNewConfEmail extends AdmsConn
     private string $url;
     //recebe o email do remetente
     private string $fromEmail;
+
+    private array $dataSave;
 
     public function getResult(): bool
     {
@@ -74,25 +77,20 @@ class AdmsNewConfEmail extends AdmsConn
     private function valConfEmail(): void
     {
         if (empty($this->resultBd[0]['conf_email']) or ($this->resultBd[0]['conf_email'] == NULL)) {
-            $confEmail = password_hash(date("Y-m-d H:m:s") . $this->resultBd[0]['id'], PASSWORD_DEFAULT);
-            $query_activate_user = "UPDATE adms_users
-                                        SET conf_email=:conf_email,
-                                        modified= NOW()
-                                        WHERE id=:id
-                                        LIMIT :limit";
-            $activate_user = $this->connectionDb()->prepare($query_activate_user);
-            $activate_user->bindParam(':conf_email', $confEmail);
-            $activate_user->bindParam(':id', $this->resultBd[0]['id']);
-            $activate_user->bindValue(':limit', 1, PDO::PARAM_INT);
-            $activate_user->execute();
+            $this->dataSave['conf_email'] = password_hash(date("Y-m-d H:m:s") . $this->resultBd[0]['id'], PASSWORD_DEFAULT);
 
-            if ($activate_user->rowCount()) {
-                $this->resultBd[0]['conf_email'] = $confEmail;
+            $updateNewConfEmail = new AdmsUpdate();
+            $updateNewConfEmail->exeUpdate("adms_users", $this->dataSave, "WHERE id=:id", "id={$this->resultBd[0]['id']}");
+
+            if ($updateNewConfEmail->getResult()) {
+                $this->resultBd[0]['conf_email'] = $this->dataSave['conf_email'];
                 $this->sendEmail();
             } else {
                 $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Link não enviado, tente novamente!</p>";
                 $this->result = false;
             }
+
+            $this->result = false;
         } else {
             $this->sendEmail();
         }

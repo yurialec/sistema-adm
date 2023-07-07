@@ -4,6 +4,7 @@ namespace App\adms\Models;
 
 use App\adms\Models\Helper\AdmsConn;
 use App\adms\Models\Helper\AdmsRead;
+use App\adms\Models\Helper\AdmsUpdate;
 
 /**
  * Confirmar o cadastro do usuário
@@ -20,6 +21,8 @@ class AdmsConfEmail extends AdmsConn
     private string $firstName;
     //Recebe os registro do banco de dados
     private array $resultBd;
+
+    private array $dataSave;
 
     public function getResult(): bool
     {
@@ -62,29 +65,20 @@ class AdmsConfEmail extends AdmsConn
      */
     private function updateSitUser(): void
     {
-        $conf_email = null;
-        $adms_sits_user_id = 1;
+        $this->dataSave['conf_email'] = null;
+        $this->dataSave['adms_sits_user_id'] = 1;
 
-        $query_activate_user = "UPDATE adms_users
-                                SET conf_email=:conf_email,
-                                adms_sits_user_id=:adms_sits_user_id,
-                                modified=NOW()
-                                WHERE id=:id
-                                LIMIT 1";
+        $updateConfEmail = new AdmsUpdate();
+        $updateConfEmail->exeUpdate("adms_users", $this->dataSave, "WHERE id=:id", "id={$this->resultBd[0]['id']}");
 
-        $activate_email = $this->connectionDb()->prepare($query_activate_user);
-        $activate_email->bindParam(':conf_email', $conf_email);
-        $activate_email->bindParam(':adms_sits_user_id', $adms_sits_user_id);
-        $activate_email->bindParam(':id', $this->resultBd[0]['id']);
-
-        $activate_email->execute();
-
-        if ($activate_email->rowCount() > 0) {
+        if ($updateConfEmail->getResult()) {
             $_SESSION['msg'] = "<p style='color: #008000;'>E-mail ativado com sucesso!</p>";
             $this->result = true;
         } else {
             $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Link Inválido!</p>";
             $this->result = false;
         }
+
+        $this->result = false;
     }
 }
