@@ -79,10 +79,10 @@ if (formLogin) {
 const formNewConfEmail = document.getElementById("form-new-conf-email");
 if (formNewConfEmail) {
     formNewConfEmail.addEventListener("submit", async (e) => {
-        
+
         //Receber o valor do campo
         var email = document.querySelector("#email").value;
-        
+
         // Verificar se o campo esta vazio
         if (email === "") {
             e.preventDefault();
@@ -91,3 +91,19 @@ if (formNewConfEmail) {
         }
     });
 }
+
+// const formRecoverPass = document.getElementById("form-recover-pass");
+// if (formRecoverPass) {
+//     formRecoverPass.addEventListener("submit", async (e) => {
+
+//         //Receber o valor do campo
+//         var email = document.querySelector("#email").value;
+
+//         // Verificar se o campo esta vazio
+//         if (email === "") {
+//             e.preventDefault();
+//             document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher o campo e-mail!</p>";
+//             return;
+//         }
+//     });
+// }

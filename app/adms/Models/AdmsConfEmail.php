@@ -21,9 +21,14 @@ class AdmsConfEmail extends AdmsConn
     private string $firstName;
     //Recebe os registro do banco de dados
     private array $resultBd;
-
+    //Recebe os valores que devem ser salvos no banco de dados
     private array $dataSave;
 
+    /**
+     * Retorna true quando executar o processo com sucesso
+     *
+     * @return boolean
+     */
     public function getResult(): bool
     {
         return $this->result;
