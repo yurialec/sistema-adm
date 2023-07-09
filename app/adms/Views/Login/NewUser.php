@@ -21,7 +21,8 @@ if (isset($_SESSION['msg'])) {
     <input type="email" name="email" id="email" placeholder="Digite seu melhor e-mail" value="<?php isset($valorForm['email']) ? printf($valorForm['email']) : null ?>" required>
     <br><br>
     <label>Senha: </label>
-    <input type="password" name="password" id="password" placeholder="Digite a senha" value="<?php isset($valorForm['password']) ? printf($valorForm['password']) : null ?>" required>
+    <input type="password" name="password" id="password" placeholder="Digite a senha" onkeyup="passwordStrength()" autocomplete="on" value="<?php isset($valorForm['password']) ? printf($valorForm['password']) : null ?>" required>
+    <span id="msgViewStrength"><br><br></span>
     <br><br>
     <button type="submit" name="SendNewUser" value="Cadastrar">Cadastrar</button>
 </form>

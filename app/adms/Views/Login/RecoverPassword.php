@@ -15,7 +15,7 @@ if (isset($_SESSION['msg'])) {
 
 <form method="POST" action="" id="form-recover-pass">
     <label>Email: </label>
-    <input type="email" name="email" id="email" placeholder="Digite seu e-mail" value="<?php isset($valorForm['email']) ? printf($valorForm['email']) : null ?>">
+    <input type="email" name="email" id="email" placeholder="Digite seu e-mail" autocomplete="on" value="<?php isset($valorForm['email']) ? printf($valorForm['email']) : null ?>" required>
     <br><br>
     <button type="submit" name="SendRecoverPass" value="Enviar">Recuperar</button>
 </form>

@@ -15,10 +15,10 @@ if (isset($_SESSION['msg'])) {
 
 <form method="POST" action="" id="form-login">
     <label>Usuário: </label>
-    <input type="text" name="user" id="user" placeholder="Digite o susuário" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>">
+    <input type="text" name="user" id="user" placeholder="Digite o susuário" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>" required>
     <br><br>
     <label>Senha: </label>
-    <input type="password" name="password" id="password" placeholder="Digite a senha" value="<?php isset($valorForm['password']) ? printf($valorForm['password']) : null ?>">
+    <input type="password" name="password" id="password" placeholder="Digite a senha" autocomplete="on" value="<?php isset($valorForm['password']) ? printf($valorForm['password']) : null ?>" required>
     <br><br>
     <button type="submit" name="SendLogin" value="Acessar">Acessar</button>
 </form>
