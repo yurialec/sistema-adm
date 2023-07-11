@@ -27,7 +27,11 @@ class AdmsCreate extends AdmsConn
     /** @var object $conn Recebe a conexão com o BD */
     private object $conn;
 
-    public function getResult(): string
+    /**
+     * Retornar o status do cadastro, retorna o último id quando cadatrar com sucesso e null quando houver erro
+     * @return string|null Retorna o último id inserido
+     */
+    function getResult(): string
     {
         return $this->result;
     }
@@ -43,7 +47,6 @@ class AdmsCreate extends AdmsConn
     {
         $this->table = $table;
         $this->data = $data;
-
         $this->exeReplaceValues();
     }
 
@@ -54,12 +57,10 @@ class AdmsCreate extends AdmsConn
      */
     private function exeReplaceValues(): void
     {
-        $columns = implode(',', array_keys($this->data));
+        $coluns = implode(', ', array_keys($this->data));
         $values = ':' . implode(', :', array_keys($this->data));
-
-        $this->query = "INSERT INTO {$this->table} ($columns) VALUES ($values)";
-
-        $this->execInstruction();
+        $this->query = "INSERT INTO {$this->table} ($coluns) VALUES ($values)";
+        $this->exeInstruction();
     }
 
     /**
@@ -68,10 +69,9 @@ class AdmsCreate extends AdmsConn
      * 
      * @return void
      */
-    private function execInstruction(): void
+    private function exeInstruction(): void
     {
         $this->connection();
-
         try {
             $this->insert->execute($this->data);
             $this->result = $this->conn->lastInsertId();

@@ -2,6 +2,7 @@
 
 namespace App\adms\Controllers;
 
+use App\adms\Models\AdmsViewUsers;
 use Core\ConfigView;
 
 /**
@@ -10,20 +11,45 @@ use Core\ConfigView;
  */
 class ViewUsers
 {
-    /**
-     * @var array|string|null $data Recebe os dados que devem ser enviados para a view
-     */
+    /** @var array|string|null $data Recebe os dados que devem ser enviados para a view */
     private array|string|null $data;
+
+    /** Recebe o id do registro pela url @var integer|null */
+    private string|int|null $id;
 
     /**
      * Metodo Visualizar Usuários
      *
      * @return void
      */
-    public function index(): void
+    public function index(string|int|null $id = null): void
     {
-        $this->data = [];
+        if (!empty($id)) {
+            $this->id = (int) $id;
+            $viewUser = new AdmsViewUsers();
+            $viewUser->ViewUser($this->id);
 
+            if ($viewUser->getResult()) {
+                $this->data['viewUser'] = $viewUser->getResultBd();
+                $this->viewUser();
+            } else {
+                $urlRedirect = URLADM . "list-users/index";
+                header("Location: $urlRedirect");
+            }
+        } else {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Usuário não encntrado</p>";
+            $urlRedirect = URLADM . "list-users/index";
+            header("Location: $urlRedirect");
+        }
+    }
+
+    /**
+     * Carregar View
+     *
+     * @return void
+     */
+    public function viewUser(): void
+    {
         $loadView = new ConfigView("adms/Views/Users/viewUser", $this->data);
         $loadView->loadView();
     }

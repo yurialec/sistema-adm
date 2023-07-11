@@ -27,6 +27,6 @@ class Erro
         $this->data = "<p style='color: #f00;'>Página não encontrada</p>";
 
         $loadView = new ConfigView("adms/Views/Erro/Erro", $this->data);
-        $loadView->loadView();
+        $loadView->loadViewLogin();
     }
 }

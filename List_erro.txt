@@ -2,3 +2,4 @@
 002 - ConfigView.php - Erro ao carregar a VIEW
 003 - CarregarPgAdm.php - Erro carregar a classe
 004 - CarregarPgAdm.php - Erro carregar a método
+005 - CarregarPgAdm.php - Erro carregar VIEW login

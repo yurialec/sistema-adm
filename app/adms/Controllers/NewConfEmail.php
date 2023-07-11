@@ -53,6 +53,6 @@ class NewConfEmail
     private function viewNewConfEmail(): void
     {
         $loadView = new ConfigView("Adms/Views/Login/NewConfEmail", $this->data);
-        $loadView->loadView();
+        $loadView->loadViewLogin();
     }
 }

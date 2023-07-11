@@ -45,6 +45,6 @@ class Login
         }
 
         $loadView = new ConfigView("adms/Views/Login/Login", $this->data);
-        $loadView->loadView();
+        $loadView->loadViewLogin();
     }
 }

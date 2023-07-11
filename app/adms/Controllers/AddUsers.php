@@ -2,14 +2,14 @@
 
 namespace App\adms\Controllers;
 
-use App\adms\Models\AdmsRecoverPassword;
+use App\adms\Models\AdmsAddUsers;
 use Core\ConfigView;
 
 /**
- * Controller da página recuperar
+ * Controller da página cadastrar novo Usuário
  * @author Yuri <yuri.alec@hotmail.com>
  */
-class RecoverPassword
+class AddUsers
 {
     /**
      * @var array|string|null $data Recebe os dados que devem ser enviados para a view
@@ -24,7 +24,7 @@ class RecoverPassword
     private array|null $dataForm;
 
     /**
-     * Metodo index
+     * Metodo Login
      *
      * @return void
      */
@@ -32,27 +32,26 @@ class RecoverPassword
     {
         $this->dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-        if (!empty($this->dataForm['SendRecoverPass'])) {
-            unset($this->dataForm['SendRecoverPass']);
+        if (!empty($this->dataForm['SendAddUser'])) {
+            unset($this->dataForm['SendAddUser']);
+            $createUser = new AdmsAddUsers();
+            $createUser->create($this->dataForm);
 
-            $recoverPass = new AdmsRecoverPassword();
-            $recoverPass->recoverPassword($this->dataForm);
-
-            if ($recoverPass->getResult()) {
-                $urlRedirect = URLADM . "login/index";
+            if ($createUser->getResult()) {
+                $urlRedirect = URLADM . "list-users/index";
                 header("Location: $urlRedirect");
             } else {
                 $this->data['form'] = $this->dataForm;
-                $this->viewRecoverPass();
+                $this->viewAddUser();
             }
         } else {
-            $this->viewRecoverPass();
+            $this->viewAddUser();
         }
     }
 
-    private function viewRecoverPass(): void
+    private function viewAddUser()
     {
-        $loadView = new ConfigView("adms/Views/login/RecoverPassword", $this->data);
-        $loadView->loadViewLogin();
+        $loadView = new ConfigView("adms/Views/Users/AddUser", $this->data);
+        $loadView->loadView();
     }
 }
