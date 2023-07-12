@@ -73,7 +73,7 @@ class LoadPgAdm
 
     private function pgPrivate(): void
     {
-        $this->listPgPrivate = ["Dashboard", "ListUsers", "ViewUsers", "AddUsers"];
+        $this->listPgPrivate = ["Dashboard", "ListUsers", "ViewUsers", "AddUsers", "EditUsers"];
 
         if (in_array($this->urlController, $this->listPgPrivate)) {
             $this->verifyLogin();
