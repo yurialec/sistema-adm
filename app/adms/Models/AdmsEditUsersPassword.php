@@ -7,12 +7,13 @@ use App\adms\Models\Helper\AdmsUpdate;
 use App\adms\Models\Helper\AdmsValEmail;
 use App\adms\Models\Helper\AdmsValEmailSingle;
 use App\adms\Models\Helper\AdmsValEmptyField;
+use App\adms\Models\Helper\AdmsValPassword;
 use App\adms\Models\Helper\AdmsValUserSingle;
 
 /**
  * Editar usuário no banco de dados
  */
-class AdmsEditUsers
+class AdmsEditUsersPassword
 {
     //Recebe true quando executar com sucesso
     private bool $result = false;
@@ -42,13 +43,7 @@ class AdmsEditUsers
         $this->id = $id;
 
         $viewUser = new AdmsRead();
-        $viewUser->fullRead(
-            "SELECT usr.id, usr.name, usr.email, usr.nick_name, usr.user, usr.image
-            FROM adms_users as usr
-            WHERE usr.id=:id
-            LIMIT :limit",
-            "id={$this->id}&limit=1"
-        );
+        $viewUser->fullRead("SELECT id FROM adms_users WHERE id=:id LIMIT :limit", "id={$this->id}&limit=1");
 
         $this->resultBd = $viewUser->getResult();
 
@@ -59,11 +54,10 @@ class AdmsEditUsers
             $this->result = false;
         }
     }
-    public function updateUser(array $data = null): void
+    
+    public function updateUserPass(array $data = null): void
     {
         $this->data = $data;
-        $this->dataExitVal['nick_name'] = $this->data['nick_name'];
-        unset($this->data['nick_name']);
 
         $valEmptyField = new AdmsValEmptyField();
         $valEmptyField->valField($this->data);
@@ -78,16 +72,10 @@ class AdmsEditUsers
 
     private function valInput(): void
     {
-        $valEMail = new AdmsValEmail();
-        $valEMail->validateEmail($this->data['email']);
+        $valPassword = new AdmsValPassword();
+        $valPassword->validatePassword($this->data['password']);
 
-        $valEmailSingle = new AdmsValEmailSingle();
-        $valEmailSingle->validateEmailSingle($this->data['email'], true, $this->data['id']);
-
-        $valUserSingle = new AdmsValUserSingle();
-        $valUserSingle->validateUserSingle($this->data['user'], true, $this->data['id']);
-
-        if (($valEMail->getResult()) and ($valEmailSingle->getResult()) and ($valUserSingle->getResult())) {
+        if (($valPassword->getResult())) {
             $this->edit();
         } else {
             $this->result = false;
@@ -96,18 +84,17 @@ class AdmsEditUsers
 
     private function edit(): void
     {
+        $this->data['password'] = password_hash($this->data['password'], PASSWORD_DEFAULT);
         $this->data['modified'] = date("Y-m-d H:i:s");
-        $this->data['nick_name'] = $this->dataExitVal['nick_name'];
+        $updateUserPass = new AdmsUpdate();
 
-        $updateUser = new AdmsUpdate();
+        $updateUserPass->exeUpdate("adms_users", $this->data, "WHERE id=:id", "id={$this->data['id']}");
 
-        $updateUser->exeUpdate("adms_users", $this->data, "WHERE id=:id", "id={$this->data['id']}");
-
-        if ($updateUser->getResult()) {
-            $_SESSION['msg'] = "<p style='color: #008000;'>Usuário atualizado com sucesso!</p>";
+        if ($updateUserPass->getResult()) {
+            $_SESSION['msg'] = "<p style='color: #008000;'>Senha atualizada com sucesso!</p>";
             $this->result = true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Usuário não atualizado com sucesso!</p>";
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Senha não atualizada com sucesso!</p>";
             $this->result = false;
         }
     }

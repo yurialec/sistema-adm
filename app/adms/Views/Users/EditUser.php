@@ -24,19 +24,22 @@ if (isset($_SESSION['msg'])) {
 
 <span id="msg"></span>
 
-<form method="POST" action="" id="form-add-user">
+<form method="POST" action="" id="form-edit-user">
     <input type="hidden" name="id" id="id" value="<?php isset($valorForm['id']) ? printf($valorForm['id']) : null ?>">
-    <label>Nome: </label>
-    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php isset($valorForm['name']) ? printf($valorForm['name']) : null ?>">
+    <label><span style="color: #f00;">*</span>Nome:</label>
+    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php isset($valorForm['name']) ? printf($valorForm['name']) : null ?>" required>
     <br><br>
-    <label>Email: </label>
-    <input type="email" name="email" id="email" placeholder="Digite seu melhor e-mail" value="<?php isset($valorForm['email']) ? printf($valorForm['email']) : null ?>">
+    <label><span style="color: #f00;">*</span>Email:</label>
+    <input type="email" name="email" id="email" placeholder="Digite seu melhor e-mail" value="<?php isset($valorForm['email']) ? printf($valorForm['email']) : null ?>" required>
     <br><br>
-    <label>Usuário: </label>
-    <input type="text" name="user" id="user" placeholder="Digite o usuário para acessar o adm" onkeyup="passwordStrength()" autocomplete="on" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>">
+    <label><span style="color: #f00;">*</span>Usuário:</label>
+    <input type="text" name="user" id="user" placeholder="Digite o usuário para acessar o adm" onkeyup="passwordStrength()" autocomplete="on" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>" required>
     <br><br>
-    <label>Apelido: </label>
+    <label>Apelido:</label>
     <input type="text" name="nick_name" id="nick_name" placeholder="Digite o apelido" onkeyup="passwordStrength()" autocomplete="on" value="<?php isset($valorForm['nick_name']) ? printf($valorForm['nick_name']) : null ?>">
     <br><br>
+
+    <span style="color: #f00;">* Campo Óbrigatório</span><br><br>
+
     <button type="submit" name="SendEditUser" value="Salvar">Salvar</button>
 </form>

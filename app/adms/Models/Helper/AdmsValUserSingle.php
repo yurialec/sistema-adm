@@ -27,8 +27,8 @@ class AdmsValUserSingle
         $valUserSingle = new AdmsRead();
 
         if (($this->edit == true) and (!empty($this->id))) {
-            $valUserSingle->fullRead("SELECT id FROM adms_users WHERE user
-            =:user id <>:id LIMIT :limit", "user={$this->user}&id={$this->id}&limit=1");
+            $valUserSingle->fullRead("SELECT id FROM adms_users WHERE (user
+            =:user OR email =:email) AND id <>:id LIMIT :limit", "user={$this->user}&email={$this->user}&id={$this->id}&limit=1");
         } else {
             $valUserSingle->fullRead("SELECT id FROM adms_users WHERE user
             =:user LIMIT :limit", "user={$this->user}&limit=1");

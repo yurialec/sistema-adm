@@ -24,8 +24,8 @@ class AdmsValEmailSingle
         $valEmailSingle = new AdmsRead();
 
         if (($this->edit == true) and (!empty($this->id))) {
-            $valEmailSingle->fullRead("SELECT id FROM adms_users WHERE email
-            =:email id <>:id LIMIT :limit", "email={$this->email}&id={$this->id}&limit=1");
+            $valEmailSingle->fullRead("SELECT id FROM adms_users WHERE (email
+            =:email OR user =:user) AND id <>:id LIMIT :limit", "email={$this->email}&user={$this->email}&id={$this->id}&limit=1");
         } else {
             $valEmailSingle->fullRead("SELECT id FROM adms_users WHERE email
             =:email LIMIT :limit", "email={$this->email}&limit=1");
