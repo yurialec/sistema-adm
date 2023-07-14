@@ -3,8 +3,9 @@ echo "<h2>Detalhes do usuário</h2>";
 
 echo "<a href='" . URLADM . "list-users/index'>Listar usuários</a><br>";
 if (!empty($this->data['viewUser'])) {
-    echo "<a href=' " . URLADM . "edit-users/index/" . $this->data['viewUser'][0]['id'] . "'>Editar</a><br><br>";
-    echo "<a href=' " . URLADM . "edit-users-password/index/" . $this->data['viewUser'][0]['id'] . "'>Editar Senha</a><br><br>";
+    echo "<a href=' " . URLADM . "edit-users/index/" . $this->data['viewUser'][0]['id'] . "'>Editar</a><br>";
+    echo "<a href=' " . URLADM . "edit-users-password/index/" . $this->data['viewUser'][0]['id'] . "'>Editar Senha</a><br>";
+    echo "<a href=' " . URLADM . "edit-users-image/index/" . $this->data['viewUser'][0]['id'] . "'>Editar Imagem</a><br><br>";
 }
 
 if (isset($_SESSION['msg'])) {
