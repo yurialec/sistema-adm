@@ -10,22 +10,18 @@ use App\adms\Models\Helper\AdmsValEmptyField;
 use App\adms\Models\Helper\AdmsValUserSingle;
 
 /**
- * Editar usuário no banco de dados
+ * Visualizar perfil do usuário
  */
-class AdmsEditUsers
+class AdmsEditProfile
 {
     //Recebe true quando executar com sucesso
     private bool $result = false;
     //Recebe os registro do banco de dados
     private array $resultBd;
-    /** Recebe o id do registro pela url @var integer|null */
-    private string|int|null $id;
     //Recebe os dados
     private array|null $data;
     //Rcebe os campos que serão removidos da validação
     private array|null $dataExitVal;
-    //
-    private array $listRecordEdit;
 
     /** Retorna true caso tenha sucesso @return boolean */
     public function getResult(): bool
@@ -39,17 +35,15 @@ class AdmsEditUsers
         return $this->resultBd;
     }
 
-    public function ViewUser(int $id): void
+    public function viewProfile(): void
     {
-        $this->id = $id;
-
         $viewUser = new AdmsRead();
         $viewUser->fullRead(
-            "SELECT usr.id, usr.name, usr.email, usr.nick_name, usr.user, usr.image, usr.adms_sits_user_id
-            FROM adms_users as usr
-            WHERE usr.id=:id
+            "SELECT id, name, email, nick_name, user
+            FROM adms_users
+            WHERE id=:id
             LIMIT :limit",
-            "id={$this->id}&limit=1"
+            "id=" . $_SESSION['user_id'] . "&limit=1"
         );
 
         $this->resultBd = $viewUser->getResult();
@@ -57,12 +51,12 @@ class AdmsEditUsers
         if ($this->resultBd) {
             $this->result = true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00'>Usuário não encontrado!<p>";
+            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Perfil não encontrado!<p>";
             $this->result = false;
         }
     }
-    
-    public function updateUser(array $data = null): void
+
+    public function updateProfile(array $data = null): void
     {
         $this->data = $data;
         $this->dataExitVal['nick_name'] = $this->data['nick_name'];
@@ -73,7 +67,6 @@ class AdmsEditUsers
 
         if ($valEmptyField->getResult()) {
             $this->valInput();
-            $this->result = true;
         } else {
             $this->result = false;
         }
@@ -85,10 +78,10 @@ class AdmsEditUsers
         $valEMail->validateEmail($this->data['email']);
 
         $valEmailSingle = new AdmsValEmailSingle();
-        $valEmailSingle->validateEmailSingle($this->data['email'], true, $this->data['id']);
+        $valEmailSingle->validateEmailSingle($this->data['email'], true, $_SESSION['user_id']);
 
         $valUserSingle = new AdmsValUserSingle();
-        $valUserSingle->validateUserSingle($this->data['user'], true, $this->data['id']);
+        $valUserSingle->validateUserSingle($this->data['user'], true, $_SESSION['user_id']);
 
         if (($valEMail->getResult()) and ($valEmailSingle->getResult()) and ($valUserSingle->getResult())) {
             $this->edit();
@@ -102,27 +95,20 @@ class AdmsEditUsers
         $this->data['modified'] = date("Y-m-d H:i:s");
         $this->data['nick_name'] = $this->dataExitVal['nick_name'];
 
-        $updateUser = new AdmsUpdate();
+        $updateProfile = new AdmsUpdate();
+        $updateProfile->exeUpdate("adms_users", $this->data, "WHERE id=:id", "id=" . $_SESSION['user_id']);
+        
+        if ($updateProfile->getResult()) {
 
-        $updateUser->exeUpdate("adms_users", $this->data, "WHERE id=:id", "id={$this->data['id']}");
+            $_SESSION['user_name'] = $this->data['name'];
+            $_SESSION['user_nick_name'] = $this->data['nick_name'];
+            $_SESSION['user_email'] = $this->data['email'];
 
-        if ($updateUser->getResult()) {
-            $_SESSION['msg'] = "<p style='color: #008000;'>Usuário atualizado com sucesso!</p>";
+            $_SESSION['msg'] = "<p style='color: #008000;'>Perfil atualizado com sucesso!</p>";
             $this->result = true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Usuário não atualizado com sucesso!</p>";
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Perfil não atualizado com sucesso!</p>";
             $this->result = false;
         }
-    }
-
-    public function listSelect(): array
-    {
-        $list = new AdmsRead();
-        $list->fullRead("SELECT id as id_sit, name as name_sit FROM adms_sits_users ORDER BY name ASC");
-        $records['sit'] = $list->getResult();
-
-        $this->listRecordEdit = ['sit' => $records['sit']];
-        
-        return $this->listRecordEdit;
     }
 }

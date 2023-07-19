@@ -3,6 +3,7 @@
 namespace App\adms\Models;
 
 use App\adms\Models\Helper\AdmsCreate;
+use App\adms\Models\Helper\AdmsRead;
 use App\adms\Models\Helper\AdmsValEmail;
 use App\adms\Models\Helper\AdmsValEmailSingle;
 use App\adms\Models\Helper\AdmsValEmptyField;
@@ -11,8 +12,12 @@ use App\adms\Models\Helper\AdmsValUserSingle;
 
 class AdmsAddUsers
 {
+    /** Recebe as informações do formulário @var array|null */
     private array|null $data;
-    private $result;
+    /** Recebe true quando executar o processo com sucesso @var boolean */
+    private bool $result;
+
+    private array $listRecordAdd;
 
     /**
      * @return bool Retorna true quando executar o processo com sucesso e false quando houver erro
@@ -28,7 +33,7 @@ class AdmsAddUsers
 
         $valEmptyField = new AdmsValEmptyField();
         $valEmptyField->valField($this->data);
-        
+
         if ($valEmptyField->getResult()) {
             $this->valInput();
         } else {
@@ -73,5 +78,16 @@ class AdmsAddUsers
             $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Usuário não cadastrado com sucesso!</p>";
             $this->result = false;
         }
+    }
+
+    public function listSelect(): array
+    {
+        $list = new AdmsRead();
+        $list->fullRead("SELECT id as id_sit, name as name_sit FROM adms_sits_users ORDER BY name ASC");
+        $records['sit'] = $list->getResult();
+
+        $this->listRecordAdd = ['sit' => $records['sit']];
+        
+        return $this->listRecordAdd;
     }
 }

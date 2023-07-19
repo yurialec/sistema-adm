@@ -5,11 +5,10 @@ namespace App\adms\Models;
 use App\adms\Models\Helper\AdmsRead;
 use App\adms\Models\Helper\AdmsSlug;
 use App\adms\Models\Helper\AdmsUpdate;
-use App\adms\Models\Helper\AdmsValEmail;
-use App\adms\Models\Helper\AdmsValEmailSingle;
+use App\adms\Models\Helper\AdmsUpload;
+use App\adms\Models\helper\AdmsUploadImgRes;
 use App\adms\Models\Helper\AdmsValEmptyField;
 use App\adms\Models\Helper\AdmsValExtImg;
-use App\adms\Models\Helper\AdmsValUserSingle;
 
 /**
  * Editar imagem do usuario no banco de dados
@@ -112,15 +111,15 @@ class AdmsEditUsersImage
 
         $this->directory = "app/adms/assets/image/users/" . $this->data['id'] . "/";
 
-        if ((!file_exists($this->directory)) and (!is_dir($this->directory))) {
-            mkdir($this->directory, 0755);
-        }
+        // $uploadImg = new AdmsUpload();
+        // $uploadImg->upload($this->directory, $this->dataImage['tmp_name'], $this->nameImg);
 
-        if (move_uploaded_file($this->dataImage['tmp_name'], $this->directory . $this->nameImg)) {
+        $uploadImgResize = new AdmsUploadImgRes();
+        $uploadImgResize->upload($this->dataImage, $this->directory, $this->nameImg, 300, 300);
+
+        if ($uploadImgResize->getResult()) {
             $this->edit();
-            $this->result = true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00;'>Erro ao realizar upload da imagem!</p>";
             $this->result = false;
         }
     }

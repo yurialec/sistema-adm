@@ -51,6 +51,9 @@ class AddUsers
 
     private function viewAddUser()
     {
+        $listSelect = new AdmsAddUsers();
+        $this->data['select'] = $listSelect->listSelect();
+
         $loadView = new ConfigView("adms/Views/Users/AddUser", $this->data);
         $loadView->loadView();
     }

@@ -23,6 +23,23 @@ if (isset($_SESSION['msg'])) {
     <label><span style="color: #f00;">*</span>Usuário: </label>
     <input type="text" name="user" id="user" placeholder="Digite o usuário para acessar o adm" autocomplete="on" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>">
     <br><br>
+
+    <label><span style="color: #f00;">*</span>Situação: </label>
+    <select name="adms_sits_user_id" id="adms_sits_user_id">
+        <option value="">Selecione</option>
+        <?php
+        foreach ($this->data['select']['sit'] as $sit) :
+            extract($sit);
+            if ((isset($valorForm['adms_sits_user_id'])) and ($valorForm['adms_sits_user_id'] == $id_sit)) {
+                echo "<option value='$id_sit' selected>$name_sit</option>";
+            } else {
+                echo "<option value='$id_sit'>$name_sit</option>";
+            }
+        endforeach
+        ?>
+    </select>
+    <br><br>
+    
     <label><span style="color: #f00;">*</span>Senha: </label>
     <input type="password" name="password" id="password" placeholder="Digite a senha" onkeyup="passwordStrength()" autocomplete="on" value="<?php isset($valorForm['password']) ? printf($valorForm['password']) : null ?>">
     <span id="msgViewStrength"><br><br></span>

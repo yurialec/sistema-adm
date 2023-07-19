@@ -49,6 +49,9 @@ class EditUsers
 
     private function viewEditUser()
     {
+        $listSelect = new AdmsEditUsers();
+        $this->data['select'] = $listSelect->listSelect();
+
         $loadView = new ConfigView("adms/Views/Users/EditUser", $this->data);
         $loadView->loadView();
     }

@@ -37,7 +37,7 @@ class ViewUsers
                 header("Location: $urlRedirect");
             }
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00;'>Usuário não encntrado</p>";
+            $_SESSION['msg'] = "<p style='color: #f00;'>Usuário não encontrado</p>";
             $urlRedirect = URLADM . "list-users/index";
             header("Location: $urlRedirect");
         }
