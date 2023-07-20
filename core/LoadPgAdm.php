@@ -76,7 +76,8 @@ class LoadPgAdm
         $this->listPgPrivate = [
             "Dashboard", "ListUsers", "ViewUsers", "AddUsers",
             "EditUsers", "EditUsersPassword", "EditUsersImage",
-            "DeleteUsers", "ViewProfile", "EditProfile"
+            "DeleteUsers", "ViewProfile", "EditProfile", "EditProfilePassword",
+            "EditProfileImage"
         ];
 
         if (in_array($this->urlController, $this->listPgPrivate)) {

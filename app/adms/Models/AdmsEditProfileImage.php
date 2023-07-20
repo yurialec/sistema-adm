@@ -5,32 +5,32 @@ namespace App\adms\Models;
 use App\adms\Models\Helper\AdmsRead;
 use App\adms\Models\Helper\AdmsSlug;
 use App\adms\Models\Helper\AdmsUpdate;
-use App\adms\Models\Helper\AdmsUpload;
 use App\adms\Models\helper\AdmsUploadImgRes;
+use App\adms\Models\Helper\AdmsValEmail;
+use App\adms\Models\Helper\AdmsValEmailSingle;
 use App\adms\Models\Helper\AdmsValEmptyField;
 use App\adms\Models\Helper\AdmsValExtImg;
+use App\adms\Models\Helper\AdmsValUserSingle;
 
 /**
- * Editar imagem do usuario no banco de dados
+ * Editar a imagem do perfil do usuário
  */
-class AdmsEditUsersImage
+class AdmsEditProfileImage
 {
     //Recebe true quando executar com sucesso
     private bool $result = false;
     //Recebe os registro do banco de dados
     private array $resultBd;
-    /** Recebe o id do registro pela url @var integer|null */
-    private string|int|null $id;
-    /** Diretorio onde sera salvo a imagem @var string */
-    private string $directory;
     //Recebe os dados
     private array|null $data;
     //Rcebe os campos que serao removidos da validacao
     private array|null $dataImage;
-    //Recebe o endereco da imagem que será excluida
-    private string $delImg;
     //Recebe o slug da imagem
     private string $nameImg;
+    /** Diretorio onde sera salvo a imagem @var string */
+    private string $directory;
+    //Recebe o endereco da imagem que será excluida
+    private string $delImg;
 
     /** Retorna true caso tenha sucesso @return boolean */
     public function getResult(): bool
@@ -44,17 +44,15 @@ class AdmsEditUsersImage
         return $this->resultBd;
     }
 
-    public function ViewUser(int $id): bool
+    public function viewProfile(): bool
     {
-        $this->id = $id;
-
         $viewUser = new AdmsRead();
         $viewUser->fullRead(
             "SELECT id, image
-                                FROM adms_users
-                                WHERE id=:id
-                                LIMIT :limit",
-            "id={$this->id}&limit=1"
+            FROM adms_users
+            WHERE id=:id
+            LIMIT :limit",
+            "id=" . $_SESSION['user_id'] . "&limit=1"
         );
 
         $this->resultBd = $viewUser->getResult();
@@ -63,17 +61,17 @@ class AdmsEditUsersImage
             $this->result = true;
             return true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00'>Usuário não encontrado!<p>";
+            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Perfil não encontrado!<p>";
             $this->result = false;
             return false;
         }
     }
-    
+
     public function update(array $data = null): void
     {
         $this->data = $data;
-        $this->dataImage = $this->data['new_image'];
 
+        $this->dataImage = $this->data['new_image'];
         unset($this->data['new_image']);
 
         $valEmptyField = new AdmsValEmptyField();
@@ -97,7 +95,7 @@ class AdmsEditUsersImage
         $valExtImg = new AdmsValExtImg();
         $valExtImg->validateExtImg($this->dataImage['type']);
 
-        if ($this->ViewUser($this->data['id']) and ($valExtImg->getResult())) {
+        if ($this->viewProfile() and ($valExtImg->getResult())) {
             $this->upload();
         } else {
             $this->result = false;
@@ -109,10 +107,7 @@ class AdmsEditUsersImage
         $slugImg = new AdmsSlug();
         $this->nameImg = $slugImg->slug($this->dataImage['name']);
 
-        $this->directory = "app/adms/assets/image/users/" . $this->data['id'] . "/";
-
-        // $uploadImg = new AdmsUpload();
-        // $uploadImg->upload($this->directory, $this->dataImage['tmp_name'], $this->nameImg);
+        $this->directory = "app/adms/assets/image/users/" . $_SESSION['user_id'] . "/";
 
         $uploadImgResize = new AdmsUploadImgRes();
         $uploadImgResize->upload($this->dataImage, $this->directory, $this->nameImg, 300, 300);
@@ -131,10 +126,10 @@ class AdmsEditUsersImage
         $this->data['modified'] = date("Y-m-d H:i:s");
 
         $updateUser = new AdmsUpdate();
-
-        $updateUser->exeUpdate("adms_users", $this->data, "WHERE id=:id", "id={$this->data['id']}");
+        $updateUser->exeUpdate("adms_users", $this->data, "WHERE id=:id", "id=" . $_SESSION['user_id']);
 
         if ($updateUser->getResult()) {
+            $_SESSION['user_image'] = $this->nameImg;
             $this->deleteImage();
         } else {
             $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Usuário não atualizado com sucesso!</p>";
@@ -145,13 +140,13 @@ class AdmsEditUsersImage
     private function deleteImage(): void
     {
         if (((!empty($this->resultBd[0]['image'])) or ($this->resultBd[0]['image'] != null)) and ($this->resultBd[0]['image'] != $this->nameImg)) {
-            $this->delImg = "app/adms/assets/image/users/" . $this->data['id'] . "/" . $this->resultBd[0]['image'];
+            $this->delImg = "app/adms/assets/image/users/" . $_SESSION['user_id'] . "/" . $this->resultBd[0]['image'];
             if (file_exists($this->delImg)) {
                 unlink($this->delImg);
             }
         }
 
         $_SESSION['msg'] = "<p style='color: green;'>Imagem editada com sucesso!</p>";
-        $this->result = false;
+        $this->result = true;
     }
 }

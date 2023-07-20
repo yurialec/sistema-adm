@@ -2,10 +2,12 @@
 
 echo "<h2>Perfil</h2>";
 
+echo "<a href='" . URLADM . "list-users/index'>Listar usuários</a><br>";
 if (!empty($this->data['viewProfile'])) {
     echo "<a href=' " . URLADM . "edit-profile/index/'>Editar</a><br>";
-    echo "<a href=' " . URLADM . "edit-profile-password/index/'>Editar Senha</a><br>";
-    echo "<a href=' " . URLADM . "edit-profile-image/index/'>Editar Imagem</a><br><br>";
+    // echo "<a href=' " . URLADM . "edit-users-password/index/" . $this->data['viewUser'][0]['id'] . "'>Editar Senha</a><br>";
+    // echo "<a href=' " . URLADM . "edit-users-image/index/" . $this->data['viewUser'][0]['id'] . "'>Editar Imagem</a><br>";
+    // echo "<a href=' " . URLADM . "delete-users/index/" . $this->data['viewUser'][0]['id'] . "'>Excluir</a><br><br>";
 }
 
 if (isset($_SESSION['msg'])) {

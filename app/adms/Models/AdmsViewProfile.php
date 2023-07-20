@@ -30,7 +30,7 @@ class AdmsViewProfile
     {
         $viewUser = new AdmsRead();
         $viewUser->fullRead(
-            "SELECT name, email, nick_name, created_at, modified
+            "SELECT name, email, nick_name, created_at, modified, image
             FROM adms_users
             WHERE id=:id
             LIMIT :limit",

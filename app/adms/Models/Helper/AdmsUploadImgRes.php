@@ -30,8 +30,6 @@ class AdmsUploadImgRes
         $this->width = $width;
         $this->height = $height;
 
-        var_dump($this->imageData);
-
         $this->valDirectory();
     }
 

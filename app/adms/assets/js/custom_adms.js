@@ -346,3 +346,70 @@ if (formEditUserPass) {
         }
     });
 }
+
+const formEditUserImg = document.getElementById("form-edit-user-img");
+if (formEditUserImg) {
+    formEditUserImg.addEventListener("submit", async(e) => {
+        //Receber o valor do campo
+        var new_image = document.querySelector("#new_image").value;
+        // Verificar se o campo esta vazio
+        if (new_image === "") {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário selecionar uma imagem!</p>";
+            return;
+        } else {
+            document.getElementById("msg").innerHTML = "<p></p>";
+            return;
+        }
+    });
+}
+
+const formEditProfImg = document.getElementById("form-edit-prof-img");
+if (formEditProfImg) {
+    formEditProfImg.addEventListener("submit", async(e) => {
+        //Receber o valor do campo
+        var new_image = document.querySelector("#new_image").value;
+        // Verificar se o campo esta vazio
+        if (new_image === "") {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário selecionar uma imagem!</p>";
+            return;
+        } else {
+            document.getElementById("msg").innerHTML = "<p></p>";
+            return;
+        }
+    });
+}
+
+function inputFileValImg() {
+    //Receber o valor do campo
+    var new_image = document.querySelector("#new_image");
+
+    var filePath = new_image.value;
+
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+    if (!allowedExtensions.exec(filePath)) {
+        new_image.value = '';
+        document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário selecionar uma imagem JPG ou PNG!</p>";
+        return;
+    } else {
+        previewImage(new_image);
+        document.getElementById("msg").innerHTML = "<p></p>";
+        return;
+    }
+}
+
+function previewImage(new_image) {
+    if ((new_image.files) && (new_image.files[0])) {
+        // FileReader() - ler o conteúdo dos arquivos
+        var reader = new FileReader();
+        // onload - disparar um evento quando qualquer elemento tenha sido carregado
+        reader.onload = function (e) {
+            document.getElementById('preview-img').innerHTML = "<img src='" + e.target.result + "' alt='Imagem' style='width: 100px;'>";
+        }
+    }
+
+    // readAsDataURL - Retorna os dados do formato blob como uma URL de dados - Blob representa um arquivo
+    reader.readAsDataURL(new_image.files[0]);
+}
