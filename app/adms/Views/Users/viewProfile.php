@@ -1,5 +1,10 @@
 <?php
 
+if (!defined('G9C8O7N6N5T4I')) {
+    header("Location: /");
+    die("Erro: Página não encontrada!");
+}
+
 echo "<h2>Perfil</h2>";
 
 if (!empty($this->data['viewProfile'])) {

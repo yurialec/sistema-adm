@@ -2,13 +2,15 @@
 
 namespace App\adms\Models;
 
+if (!defined('G9C8O7N6N5T4I')) {
+    header("Location: /");
+    die("Erro: Página não encontrada!");
+}
+
 use App\adms\Models\Helper\AdmsRead;
 use App\adms\Models\Helper\AdmsUpdate;
-use App\adms\Models\Helper\AdmsValEmail;
-use App\adms\Models\Helper\AdmsValEmailSingle;
 use App\adms\Models\Helper\AdmsValEmptyField;
 use App\adms\Models\Helper\AdmsValPassword;
-use App\adms\Models\Helper\AdmsValUserSingle;
 
 /**
  * Editar usuário no banco de dados

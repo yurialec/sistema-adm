@@ -2,6 +2,11 @@
 
 namespace App\adms\Models\helper;
 
+if (!defined('G9C8O7N6N5T4I')) {
+    header("Location: /");
+    die("Erro: Página não encontrada!");
+}
+
 /**
  * Classe gernérica para redimensionar a imagem
  */

@@ -2,15 +2,17 @@
 
 namespace App\adms\Models;
 
+if (!defined('G9C8O7N6N5T4I')) {
+    header("Location: /");
+    die("Erro: Página não encontrada!");
+}
+
 use App\adms\Models\Helper\AdmsRead;
 use App\adms\Models\Helper\AdmsSlug;
 use App\adms\Models\Helper\AdmsUpdate;
 use App\adms\Models\helper\AdmsUploadImgRes;
-use App\adms\Models\Helper\AdmsValEmail;
-use App\adms\Models\Helper\AdmsValEmailSingle;
 use App\adms\Models\Helper\AdmsValEmptyField;
 use App\adms\Models\Helper\AdmsValExtImg;
-use App\adms\Models\Helper\AdmsValUserSingle;
 
 /**
  * Editar a imagem do perfil do usuário

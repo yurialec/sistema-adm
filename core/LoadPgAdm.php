@@ -2,6 +2,11 @@
 
 namespace Core;
 
+if (!defined('G9C8O7N6N5T4I')) {
+    header("Location: /");
+    die("Erro: Página não encontrada!");
+}
+
 /**
  * Verificar se existe a classe
  * Carregar a CONTROLLER

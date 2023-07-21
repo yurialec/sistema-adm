@@ -1,4 +1,9 @@
 <?php
+if (!defined('G9C8O7N6N5T4I')) {
+    header("Location: /");
+    die("Erro: Página não encontrada!");
+}
+
 echo "<h2>Detalhes do usuário</h2>";
 
 echo "<a href='" . URLADM . "list-users/index'>Listar usuários</a><br>";
