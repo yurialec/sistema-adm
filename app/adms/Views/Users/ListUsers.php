@@ -7,7 +7,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 
 echo "<h2>Listar Usuários</h2>";
 
-echo "<a href='" . URLADM . "add-users/index'>Cadastrar</a><br><br>";
+echo "<a href='" . URLADM . "add-users/index'>Cadastrar novo usuário</a><br><br>";
 
 if (isset($_SESSION['msg'])) {
     printf($_SESSION['msg']);
