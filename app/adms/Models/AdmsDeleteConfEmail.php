@@ -8,11 +8,12 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\Helper\AdmsDelete;
+use App\adms\Models\Helper\AdmsRead;
 
 /**
  * Editar usuário no banco de dados
  */
-class AdmsDeleteSitsUsers
+class AdmsDeleteConfEmail
 {
     //Recebe true quando executar com sucesso
     private bool $result = false;
@@ -27,15 +28,15 @@ class AdmsDeleteSitsUsers
         return $this->result;
     }
 
-    public function deleteSitsUser(int $id): void
+    public function deleteConfEMail(int $id): void
     {
         $this->id = (int) $id;
 
-        if (($this->ViewSitsUser()) and ($this->checkStatusUsed())) {
-            $deleteUser = new AdmsDelete();
-            $deleteUser->exeDelete("adms_sits_users", "WHERE id=:id", "id={$this->id}");
+        if ($this->viewConfEmail()) {
+            $deleteConfEmail = new AdmsDelete();
+            $deleteConfEmail->exeDelete("adms_confs_emails", "WHERE id=:id", "id={$this->id}");
 
-            if ($deleteUser->getResult()) {
+            if ($deleteConfEmail->getResult()) {
                 $_SESSION['msg'] = "<p style='color: #008000;'>Registro excluido com sucesso!</p>";
                 $this->result = true;
             } else {
@@ -47,35 +48,23 @@ class AdmsDeleteSitsUsers
         }
     }
 
-    private function ViewSitsUser(): bool
+    private function viewConfEmail(): bool
     {
-        $viewUser = new \App\adms\Models\helper\AdmsRead();
-        $viewUser->fullRead(
+        $viewConfEmail = new \App\adms\Models\helper\AdmsRead();
+        $viewConfEmail->fullRead(
             "SELECT id
-                            FROM adms_sits_users                           
+                            FROM adms_confs_emails                           
                             WHERE id=:id
                             LIMIT :limit",
             "id={$this->id}&limit=1"
         );
 
-        $this->resultBd = $viewUser->getResult();
+        $this->resultBd = $viewConfEmail->getResult();
         if ($this->resultBd) {
             return true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Usuário não encontrado!</p>";
+            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Configuração não encontrada!</p>";
             return false;
-        }
-    }
-
-    private function checkStatusUsed(): bool
-    {
-        $viewUserAdd = new \App\adms\Models\helper\AdmsRead();
-        $viewUserAdd->fullRead("SELECT id FROM adms_users WHERE adms_sits_user_id =:adms_sits_user_id LIMIT :limit", "adms_sits_user_id={$this->id}&limit=1");
-        if ($viewUserAdd->getResult()) {
-            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Situação não pode ser apagada, há usuários cadastrados com essa situação!</p>";
-            return false;
-        } else {
-            return true;
         }
     }
 }

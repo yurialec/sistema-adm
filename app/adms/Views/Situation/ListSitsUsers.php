@@ -23,3 +23,5 @@ foreach ($this->data['listSitsUsers'] as $situation) {
     echo "<a href='" . URLADM . "delete-sits-users/index/$id'>Apagar</a>";
     echo "<hr>";
 }
+
+echo $this->data['pagination'];

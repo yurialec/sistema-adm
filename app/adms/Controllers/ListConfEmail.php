@@ -7,10 +7,10 @@ if (!defined('G9C8O7N6N5T4I')) {
     die("Erro: Página não encontrada!");
 }
 
-use App\adms\Models\AdmsListUsers;
+use App\adms\Models\AdmsListConfEmails;
 use Core\ConfigView;
 
-class ListUsers
+class ListConfEmail
 {
     /**
      * @var array|string|null $data Recebe os dados que devem ser enviados para a view
@@ -31,17 +31,17 @@ class ListUsers
     {
         $this->page = (int) $page ? $page : 1;
 
-        $listUsers = new AdmsListUsers();
-        $listUsers->listUsers($this->page);
+        $listConfEmail = new AdmsListConfEmails();
+        $listConfEmail->listConfEmail($this->page);
 
-        if ($listUsers->getResult()) {
-            $this->data['listUsers'] = $listUsers->getResultBd();
-            $this->data['pagination'] = $listUsers->getResultPg();
+        if ($listConfEmail->getResult()) {
+            $this->data['listConfEmail'] = $listConfEmail->getResultBd();
+            $this->data['pagination'] = $listConfEmail->getResultPg();
         } else {
-            $this->data['listUsers'] = [];
+            $this->data['listConfEmail'] = [];
         }
 
-        $loadView = new ConfigView("adms/Views/Users/ListUsers", $this->data);
+        $loadView = new ConfigView("adms/Views/ConfEmail/ListConfEmail", $this->data);
         $loadView->loadView();
     }
 }

@@ -86,7 +86,10 @@ class LoadPgAdm
             "EditUsers", "EditUsersPassword", "EditUsersImage",
             "DeleteUsers", "ViewProfile", "EditProfile", "EditProfilePassword",
             "EditProfileImage", "ListSitsUsers", "ViewSitsUsers",
-            "EditSitsUsers", "DeleteSitsUsers", "AddSitsUsers"
+            "EditSitsUsers", "DeleteSitsUsers", "AddSitsUsers", "ListColors",
+            "ViewColor", "EditColor", "DeleteColor", "AddColor",
+            "ListConfEmail", "ViewConfEmail", "EditConfEmail", "DeleteConfEmail",
+            "EditConfEmailPassword"
         ];
 
         if (in_array($this->urlController, $this->listPgPrivate)) {

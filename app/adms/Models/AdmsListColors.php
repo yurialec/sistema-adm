@@ -10,7 +10,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 use App\adms\Models\Helper\AdmsPagination;
 use App\adms\Models\Helper\AdmsRead;
 
-class AdmsListSitsUsers
+class AdmsListColors
 {
     //Recebe true quando executar com sucesso
     private bool $result;
@@ -38,26 +38,25 @@ class AdmsListSitsUsers
         return $this->resultPg;
     }
 
-    public function listSitsUsers(int $page = null): void
+    public function listColors(int $page = null): void
     {
         $this->page = (int) $page ? $page : 1;
 
-        $pagination  = new AdmsPagination(URLADM . 'list-sits-users/index');
+        $pagination = new AdmsPagination(URLADM . 'list-colors/index');
         $pagination->condition($this->page, $this->limitResult);
-        $pagination->pagination("SELECT COUNT(sit.id) AS num_result FROM adms_sits_users sit");
+        $pagination->pagination("SELECT COUNT(usr.id) AS num_result FROM adms_users usr");
         $this->resultPg = $pagination->getResult();
 
-        $listSitsUsers = new AdmsRead();
-        $listSitsUsers->fullRead(
-            "SELECT adms_sits_users.id, adms_sits_users.name, adms_colors.color
-                                    FROM adms_sits_users
-                                    INNER JOIN adms_colors
-                                    ON adms_colors.id = adms_sits_users.adms_color_id
-                                    LIMIT :limit OFFSET :offset",
+        $listUsers = new AdmsRead();
+        $listUsers->fullRead(
+            "SELECT id, name, color
+                                FROM adms_colors
+                                ORDER BY name ASC
+                                LIMIT :limit OFFSET :offset",
             "limit={$this->limitResult}&offset={$pagination->getOffset()}"
         );
 
-        $this->resultBd = $listSitsUsers->getResult();
+        $this->resultBd = $listUsers->getResult();
 
         if ($this->resultBd) {
             $this->result = true;

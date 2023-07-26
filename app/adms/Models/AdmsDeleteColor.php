@@ -8,11 +8,12 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\Helper\AdmsDelete;
+use App\adms\Models\Helper\AdmsRead;
 
 /**
  * Editar usuário no banco de dados
  */
-class AdmsDeleteSitsUsers
+class AdmsDeleteColor
 {
     //Recebe true quando executar com sucesso
     private bool $result = false;
@@ -20,6 +21,10 @@ class AdmsDeleteSitsUsers
     private string|int|null $id;
     /** Retorna array com os registros do banco de dados @var array */
     private array $resultBd;
+    /** Recebe o endereco para excluir o diretorio da imagem @var string */
+    private string $delDirectory;
+    /** Recebe o endereco para excluir a imagem @var string */
+    private string $delImage;
 
     /** Retorna true caso tenha sucesso @return boolean */
     public function getResult(): bool
@@ -27,13 +32,13 @@ class AdmsDeleteSitsUsers
         return $this->result;
     }
 
-    public function deleteSitsUser(int $id): void
+    public function deleteColor(int $id): void
     {
         $this->id = (int) $id;
 
-        if (($this->ViewSitsUser()) and ($this->checkStatusUsed())) {
+        if (($this->viewColor()) and ($this->checkColorUsed())) {
             $deleteUser = new AdmsDelete();
-            $deleteUser->exeDelete("adms_sits_users", "WHERE id=:id", "id={$this->id}");
+            $deleteUser->exeDelete("adms_colors", "WHERE id=:id", "id={$this->id}");
 
             if ($deleteUser->getResult()) {
                 $_SESSION['msg'] = "<p style='color: #008000;'>Registro excluido com sucesso!</p>";
@@ -47,12 +52,12 @@ class AdmsDeleteSitsUsers
         }
     }
 
-    private function ViewSitsUser(): bool
+    private function ViewColor(): bool
     {
         $viewUser = new \App\adms\Models\helper\AdmsRead();
         $viewUser->fullRead(
             "SELECT id
-                            FROM adms_sits_users                           
+                            FROM adms_colors                           
                             WHERE id=:id
                             LIMIT :limit",
             "id={$this->id}&limit=1"
@@ -62,17 +67,22 @@ class AdmsDeleteSitsUsers
         if ($this->resultBd) {
             return true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Usuário não encontrado!</p>";
+            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Cor não encontrada!</p>";
             return false;
         }
     }
 
-    private function checkStatusUsed(): bool
+    /**
+     * Metodo verifica se tem situação cadastrados usando a cor a ser excluida, caso tenha a exclusão não é permitida
+     * O resultado da pesquisa é enviada para a função deleteColor
+     * @return boolean
+     */
+    private function checkColorUsed(): bool
     {
-        $viewUserAdd = new \App\adms\Models\helper\AdmsRead();
-        $viewUserAdd->fullRead("SELECT id FROM adms_users WHERE adms_sits_user_id =:adms_sits_user_id LIMIT :limit", "adms_sits_user_id={$this->id}&limit=1");
-        if ($viewUserAdd->getResult()) {
-            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Situação não pode ser apagada, há usuários cadastrados com essa situação!</p>";
+        $viewColorUsed = new \App\adms\Models\helper\AdmsRead();
+        $viewColorUsed->fullRead("SELECT id FROM adms_sits_users WHERE adms_color_id =:adms_color_id LIMIT :limit", "adms_color_id={$this->id}&limit=1");
+        if ($viewColorUsed->getResult()) {
+            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Cor não pode ser apagada, há situação cadastrada com essa cor!</p>";
             return false;
         } else {
             return true;

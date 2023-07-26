@@ -7,10 +7,10 @@ if (!defined('G9C8O7N6N5T4I')) {
     die("Erro: Página não encontrada!");
 }
 
-use App\adms\Models\AdmsListUsers;
+use App\adms\Models\AdmsListColors;
 use Core\ConfigView;
 
-class ListUsers
+class ListColors
 {
     /**
      * @var array|string|null $data Recebe os dados que devem ser enviados para a view
@@ -31,17 +31,17 @@ class ListUsers
     {
         $this->page = (int) $page ? $page : 1;
 
-        $listUsers = new AdmsListUsers();
-        $listUsers->listUsers($this->page);
+        $listColors = new AdmsListColors();
+        $listColors->listColors($this->page);
 
-        if ($listUsers->getResult()) {
-            $this->data['listUsers'] = $listUsers->getResultBd();
-            $this->data['pagination'] = $listUsers->getResultPg();
+        if ($listColors->getResult()) {
+            $this->data['listColors'] = $listColors->getResultBd();
+            $this->data['pagination'] = $listColors->getResultPg();
         } else {
-            $this->data['listUsers'] = [];
+            $this->data['listColors'] = [];
         }
 
-        $loadView = new ConfigView("adms/Views/Users/ListUsers", $this->data);
+        $loadView = new ConfigView("adms/Views/Colors/listColors", $this->data);
         $loadView->loadView();
     }
 }

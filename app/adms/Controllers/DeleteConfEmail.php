@@ -2,24 +2,25 @@
 
 namespace App\adms\Controllers;
 
+use App\adms\Models\AdmsDeleteConfEmail;
+
 if (!defined('G9C8O7N6N5T4I')) {
     header("Location: /");
     die("Erro: Página não encontrada!");
 }
 
-use App\adms\Models\AdmsDeleteSitsUsers;
 
 /**
- * Controller da página apagar Situação
+ * Controller da página apagar Cores
  * @author Yuri <yuri.alec@hotmail.com>
  */
-class DeleteSitsUsers
+class DeleteConfEmail
 {
     /** Recebe o id do registro pela url @var integer|null */
     private string|int|null $id;
 
     /**
-     * Metodo Apagar situação
+     * Metodo Apaga usuário
      *
      * @return void
      */
@@ -27,13 +28,13 @@ class DeleteSitsUsers
     {
         if ((!empty($id))) {
             $this->id = (int) $id;
-            $deleteSitsUser = new AdmsDeleteSitsUsers();
-            $deleteSitsUser->deleteSitsUser($this->id);
+            $deleteConfEmail = new AdmsDeleteConfEmail();
+            $deleteConfEmail->deleteConfEMail($this->id);
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Situação não encontrada</p>";
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Configuração não encontrada</p>";
         }
 
-        $urlRedirect = URLADM . "list-sits-users/index";
+        $urlRedirect = URLADM . "list-conf-email/index";
         header("Location: $urlRedirect");
     }
 }

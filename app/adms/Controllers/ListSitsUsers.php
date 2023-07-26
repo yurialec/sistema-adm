@@ -29,6 +29,7 @@ class ListSitsUsers
 
         if ($listSitsUsers->getResult()) {
             $this->data['listSitsUsers'] = $listSitsUsers->getResultBd();
+            $this->data['pagination'] = $listSitsUsers->getResultPg();
         } else {
             $this->data['listSitsUsers'] = [];
         }
