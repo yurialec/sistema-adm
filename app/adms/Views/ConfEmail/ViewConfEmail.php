@@ -10,7 +10,7 @@ echo "<a href='" . URLADM . "list-conf-email/index'>Configurações de E-mail</a
 if (!empty($this->data['viewConfEmail'])) {
     echo "<a href=' " . URLADM . "edit-conf-email/index/" . $this->data['viewConfEmail'][0]['id'] . "'>Editar</a><br>";
     echo "<a href=' " . URLADM . "edit-conf-email-password/index/" . $this->data['viewConfEmail'][0]['id'] . "'>Editar Senha</a><br>";
-    echo "<a href=' " . URLADM . "delete-conf-email/index/" . $this->data['viewConfEmail'][0]['id'] . "'>Excluir</a><br><br>";
+    echo "<a href=' " . URLADM . "delete-conf-email/index/" . $this->data['viewConfEmail'][0]['id'] . "' onClick='return confirm(\"Tem Certeza que deseja excluir este registro?\")'>Excluir</a><br><br>";
 }
 
 if (isset($_SESSION['msg'])) {

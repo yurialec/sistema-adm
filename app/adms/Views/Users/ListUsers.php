@@ -22,7 +22,7 @@ foreach ($this->data['listUsers'] as $user) {
     echo "Situação: <span style='color: $color_name'> $situation_name </span><br>";
     echo "<a href='" . URLADM . "view-users/index/$id'>Visualizar</a><br>";
     echo "<a href='" . URLADM . "edit-users/index/$id'>Editar</a><br>";
-    echo "<a href='" . URLADM . "delete-users/index/$id'>Apagar</a>";
+    echo "<a href='" . URLADM . "delete-users/index/$id' onClick='return confirm(\"Tem Certeza que deseja excluir este registro?\")'>Apagar</a>";
     echo "<hr>";
 }
 
