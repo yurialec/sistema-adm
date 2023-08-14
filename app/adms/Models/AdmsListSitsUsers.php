@@ -52,7 +52,7 @@ class AdmsListSitsUsers
             "SELECT adms_sits_users.id, adms_sits_users.name, adms_colors.color
                                     FROM adms_sits_users
                                     INNER JOIN adms_colors
-                                    ON adms_colors.id = adms_sits_users.adms_color_id
+                                    ON adms_colors.id = adms_sits_users.adms_color
                                     LIMIT :limit OFFSET :offset",
             "limit={$this->limitResult}&offset={$pagination->getOffset()}"
         );

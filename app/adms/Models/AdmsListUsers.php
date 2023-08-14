@@ -15,7 +15,7 @@ class AdmsListUsers
     //Recebe true quando executar com sucesso
     private bool $result;
     //Recebe os registro do banco de dados
-    private array $resultBd;
+    private array|null $resultBd;
     //Recebe o número da página
     private int $page;
     //Recebe a quantidade de resgistro que deve retornar do banco de dados 
@@ -56,7 +56,7 @@ class AdmsListUsers
                                 INNER JOIN adms_sits_users AS situation
                                 ON situation.id =  usr.adms_sits_user_id
                                 INNER JOIN adms_colors AS color
-                                ON color.id = situation.adms_color_id
+                                ON color.id = situation.adms_color
                                 ORDER BY usr.id DESC
                                 LIMIT :limit OFFSET :offset",
             "limit={$this->limitResult}&offset={$pagination->getOffset()}"
