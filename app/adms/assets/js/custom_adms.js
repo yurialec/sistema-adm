@@ -1,3 +1,61 @@
+// Permitir retorno no navegador no formulario apos o erro
+if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+}
+
+/* Inicio Dropdown Navbar */
+//let notification = document.querySelector(".notification");
+let avatar = document.querySelector(".avatar");
+
+dropMenu(avatar);
+//dropMenu(notification);
+
+function dropMenu(selector) {
+    //console.log(selector);
+    selector.addEventListener("click", () => {
+        let dropdownMenu = selector.querySelector(".dropdown-menu");
+        dropdownMenu.classList.contains("active") ? dropdownMenu.classList.remove("active") : dropdownMenu.classList.add("active");
+    });
+}
+/* Fim Dropdown Navbar */
+
+/* Inicio Sidebar Toggle / bars */
+let sidebar = document.querySelector(".sidebar");
+let bars = document.querySelector(".bars");
+
+bars.addEventListener("click", () => {
+    sidebar.classList.contains("active") ? sidebar.classList.remove("active") : sidebar.classList.add("active");
+});
+
+window.matchMedia("(max-width: 768px)").matches ? sidebar.classList.remove("active") : sidebar.classList.add("active");
+/* Fim Sidebar Toggle / bars */
+
+/* Inicio botao dropdown do listar */
+
+function actionDropdown(id) {
+    closeDropdownAction();
+    document.getElementById("actionDropdown" + id).classList.toggle("show-dropdown-action");
+}
+
+window.onclick = function (event) {
+    if (!event.target.matches(".dropdown-btn-action")) {
+        /*document.getElementById("actionDropdown").classList.remove("show-dropdown-action");*/
+        closeDropdownAction();
+    }
+}
+
+function closeDropdownAction() {
+    var dropdowns = document.getElementsByClassName("dropdown-action-item");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i]
+        if (openDropdown.classList.contains("show-dropdown-action")) {
+            openDropdown.classList.remove("show-dropdown-action");
+        }
+    }
+}
+/* Fim botao dropdown do listar */
+
 // Calcular a forca da senha
 function passwordStrength() {
     var password = document.getElementById("password").value;
@@ -349,13 +407,13 @@ if (formEditUserPass) {
 
 const formEditUserImg = document.getElementById("form-edit-user-img");
 if (formEditUserImg) {
-    formEditUserImg.addEventListener("submit", async(e) => {
+    formEditUserImg.addEventListener("submit", async (e) => {
         //Receber o valor do campo
         var new_image = document.querySelector("#new_image").value;
         // Verificar se o campo esta vazio
         if (new_image === "") {
             e.preventDefault();
-            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário selecionar uma imagem!</p>";
+            document.getElementById("msg").innerHTML = "<p class='alert-danger'>Erro: Necessário selecionar uma imagem!</p>";
             return;
         } else {
             document.getElementById("msg").innerHTML = "<p></p>";
@@ -366,7 +424,7 @@ if (formEditUserImg) {
 
 const formEditProfImg = document.getElementById("form-edit-prof-img");
 if (formEditProfImg) {
-    formEditProfImg.addEventListener("submit", async(e) => {
+    formEditProfImg.addEventListener("submit", async (e) => {
         //Receber o valor do campo
         var new_image = document.querySelector("#new_image").value;
         // Verificar se o campo esta vazio

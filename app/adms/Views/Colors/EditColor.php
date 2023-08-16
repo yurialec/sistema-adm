@@ -12,32 +12,74 @@ if (isset($this->data['form'][0])) {
 }
 
 ?>
-<h1>Editar Cor</h1>
-<?php
+<!-- Inicio do conteudo do administrativo -->
+<div class="wrapper">
+    <div class="row">
+        <div class="top-list">
+            <span class="title-content">Editar Cor</span>
+            <div class="top-list-right">
+                <?php
+                echo "<a href='" . URLADM . "list-colors/index' class='btn-info'>Listar</a> ";
+                if (isset($valorForm['id'])) {
+                    echo "<a href='" . URLADM . "view-color/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                }
+                ?>
+            </div>
+        </div>
 
-echo "<a href='" . URLADM . "list-colors/index'>Listar cores</a><br>";
-if (isset($valorForm['id'])) {
-    echo "<a href=' " . URLADM . "view-color/index/" . $valorForm['id'] . "'>Visualizar</a><br><br>";
-}
+        <div class="content-adm-alert">
+            <?php
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+            <span id="msg"></span>
+        </div>
 
-if (isset($_SESSION['msg'])) {
-    printf($_SESSION['msg']);
-    unset($_SESSION['msg']);
-}
-?>
+        <div class="content-adm">
+            <form method="POST" action="" id="form-add-color" class="form-adm">
+                <?php
+                $id = "";
+                if (isset($valorForm['id'])) {
+                    $id = $valorForm['id'];
+                }
+                ?>
+                <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
 
-<span id="msg"></span>
+                <div class="row-input">
+                    <div class="column">
+                        <?php
+                        $name = "";
+                        if (isset($valorForm['name'])) {
+                            $name = $valorForm['name'];
+                        }
+                        ?>
+                        <label class="title-input">Nome:<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="input-adm" placeholder="Digite o nome da cor" value="<?php echo $name; ?>" required>
+                    </div>
+                </div>
 
-<form method="POST" action="" id="form-edit-user">
-    <input type="hidden" name="id" id="id" value="<?php isset($valorForm['id']) ? printf($valorForm['id']) : null ?>">
-    <label><span style="color: #f00;">*</span>Nome:</label>
-    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php isset($valorForm['name']) ? printf($valorForm['name']) : null ?>" required>
-    <br><br>
-    <label><span style="color: #f00;">*</span>Cor:</label>
-    <input type="text" name="color" id="color" placeholder="Digite a cor em hexadecimal" value="<?php isset($valorForm['color']) ? printf($valorForm['color']) : null ?>" required>
-    <br><br>
+                <div class="row-input">
+                    <div class="column">
+                        <?php
+                        $color = "";
+                        if (isset($valorForm['color'])) {
+                            $color = $valorForm['color'];
+                        }
+                        ?>
+                        <label class="title-input">Cor:<span class="text-danger">*</span></label>
+                        <input type="text" name="color" id="color" class="input-adm" placeholder="Digite a cor em hexadecimal" value="<?php echo $color; ?>" required>
 
-    <span style="color: #f00;">* Campo Óbrigatório</span><br><br>
+                    </div>
+                </div>
 
-    <button type="submit" name="SendEditColor" value="Salvar">Salvar</button>
-</form>
+                <p class="text-danger mb-5 fs-4">* Campo Obrigatório</p>
+
+                <button type="submit" name="SendEditColor" class="btn-warning" value="Salvar">Salvar</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Fim do conteudo do administrativo -->

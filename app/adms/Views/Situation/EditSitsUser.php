@@ -12,45 +12,79 @@ if (isset($this->data['form'][0])) {
 }
 
 ?>
-<h1>Editar Situação</h1>
-<?php
+<!-- Inicio do conteudo do administrativo -->
+<div class="wrapper">
+    <div class="row">
+        <div class="top-list">
+            <span class="title-content">Editar Situação</span>
+            <div class="top-list-right">
+                <?php
+                echo "<a href='" . URLADM . "list-sits-users/index' class='btn-info'>Listar</a> ";
+                if (isset($valorForm['id'])) {
+                    echo "<a href='" . URLADM . "view-sits-users/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                }
+                ?>
+            </div>
+        </div>
 
-echo "<a href='" . URLADM . "list-sits-users/index'>Listar Situações</a><br>";
-if (isset($valorForm['id'])) {
-    echo "<a href=' " . URLADM . "view-sits-users/index/" . $valorForm['id'] . "'>Visualizar</a><br><br>";
-}
-
-if (isset($_SESSION['msg'])) {
-    printf($_SESSION['msg']);
-    unset($_SESSION['msg']);
-}
-?>
-
-<span id="msg"></span>
-
-<form method="POST" action="" id="form-edit-sits-user">
-    <input type="hidden" name="id" id="id" value="<?php isset($valorForm['id']) ? printf($valorForm['id']) : null ?>">
-    <label><span style="color: #f00;">*</span>Nome:</label>
-    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php isset($valorForm['name']) ? printf($valorForm['name']) : null ?>" required>
-    <br><br>
-    
-    <label><span style="color: #f00;">*</span>Cor: </label>
-    <select name="adms_color_id" id="adms_color_id">
-        <option value="">Selecione</option>
-        <?php
-        foreach ($this->data['select']['color'] as $color) :
-            extract($color);
-            if ((isset($valorForm['id'])) and ($valorForm['id'] == $id_color)) {
-                echo "<option value='$id_color' selected>$name_color</option>";
-            } else {
-                echo "<option value='$id_color'>$name_color</option>";
+        <div class="content-adm-alert">
+            <?php
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
             }
-        endforeach
-        ?>
-    </select>
-    <br><br>
+            ?>
+            <span id="msg"></span>
+        </div>
 
-    <span style="color: #f00;">* Campo Óbrigatório</span><br><br>
+        <div class="content-adm">
+            <form method="POST" action="" id="form-add-sit-user" class="form-adm">
+                <?php
+                $id = "";
+                if (isset($valorForm['id'])) {
+                    $id = $valorForm['id'];
+                }
+                ?>
+                <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
 
-    <button type="submit" name="SendEditSitsUser" value="Salvar">Salvar</button>
-</form>
+                <div class="row-input">
+                    <div class="column">
+                        <?php
+                        $name = "";
+                        if (isset($valorForm['name'])) {
+                            $name = $valorForm['name'];
+                        }
+                        ?>
+                        <label class="title-input">Nome:<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="input-adm" placeholder="Digite o nome da situação" value="<?php echo $name; ?>" required>
+                    </div>
+                </div>
+
+                <div class="row-input">
+                    <div class="column">
+                        <label class="title-input">Cor:<span class="text-danger">*</span></label>
+                        <select name="adms_color" id="adms_color" class="input-adm" required>
+                            <option value="">Selecione</option>
+                            <?php
+                            foreach ($this->data['select']['color'] as $color) {
+                                extract($color);
+                                if ((isset($valorForm['adms_color'])) and ($valorForm['adms_color'] == $id_color)) {
+                                    echo "<option value='$id_color' selected>$name_color</option>";
+                                } else {
+                                    echo "<option value='$id_color'>$name_color</option>";
+                                }
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+
+                <p class="text-danger mb-5 fs-4">* Campo Obrigatório</p>
+
+                <button type="submit" name="SendEditSitsUser" class="btn-warning" value="Salvar">Salvar</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Fim do conteudo do administrativo -->

@@ -1,30 +1,22 @@
 <?php
+
 if (!defined('G9C8O7N6N5T4I')) {
     header("Location: /");
     die("Erro: Página não encontrada!");
 }
+
 if (isset($this->data['form'])) {
     $valorForm = $this->data['form'];
 }
-
-if (isset($this->data['form'][0])) {
-    $valorForm = $this->data['form'][0];
-}
-
 ?>
 <!-- Inicio do conteudo do administrativo -->
 <div class="wrapper">
     <div class="row">
         <div class="top-list">
-            <span class="title-content">Editar E-mail</span>
+            <span class="title-content">Cadastrar E-mail</span>
             <div class="top-list-right">
                 <?php
                 echo "<a href='" . URLADM . "list-conf-email/index' class='btn-info'>Listar</a> ";
-                if (isset($valorForm['id'])) {
-                    echo "<a href='" . URLADM . "view-conf-email/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a> ";
-                    echo "<a href='" . URLADM . "edit-conf-email-password/index/" . $valorForm['id'] . "' class='btn-warning'>Editar Senha</a> ";
-                    echo "<a href='" . URLADM . "delete-conf-email/index/" . $valorForm['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
-                }
                 ?>
             </div>
         </div>
@@ -40,15 +32,7 @@ if (isset($this->data['form'][0])) {
         </div>
 
         <div class="content-adm">
-            <form method="POST" action="" id="form-edit-conf-emails" class="form-adm">
-                <?php
-                $id = "";
-                if (isset($valorForm['id'])) {
-                    $id = $valorForm['id'];
-                }
-                ?>
-                <input type="hidden" name="id" id="id" value="<?php echo $id; ?>">
-
+            <form method="POST" action="" id="form-add-conf-emails" class="form-adm">
                 <div class="row-input">
                     <div class="column">
                         <?php
@@ -117,6 +101,22 @@ if (isset($this->data['form'][0])) {
                 <div class="row-input">
                     <div class="column">
                         <?php
+                        $password = "";
+                        if (isset($valorForm['password'])) {
+                            $password = $valorForm['password'];
+                        }
+                        ?>
+                        <label class="title-input">Senha:<span class="text-danger">*</span></label>
+                        <input type="password" name="password" id="password" class="input-adm" placeholder="Senha do e-mail" autocomplete="on" value="<?php echo $password; ?>" required>
+                        <span id="msgViewStrength"></span>
+
+                    </div>
+                </div>
+
+
+                <div class="row-input">
+                    <div class="column">
+                        <?php
                         $smtp = "";
                         if (isset($valorForm['smtp'])) {
                             $smtp = $valorForm['smtp'];
@@ -142,7 +142,7 @@ if (isset($this->data['form'][0])) {
 
                 <p class="text-danger mb-5 fs-4">* Campo Obrigatório</p>
 
-                <button type="submit" name="SendEditConfEMail" class="btn-warning" value="Salvar">Salvar</button>
+                <button type="submit" name="SendAddConfEmails" class="btn-success" value="Cadastrar">Cadastrar</button>
 
             </form>
         </div>

@@ -39,10 +39,11 @@ class AddSitsUsers
 
         if (!empty($this->dataForm['SendAddSitsUser'])) {
             unset($this->dataForm['SendAddSitsUser']);
-            $createUser = new AdmsAddSitsUsers();
-            $createUser->create($this->dataForm);
 
-            if ($createUser->getResult()) {
+            $createSitsUser = new AdmsAddSitsUsers();
+            $createSitsUser->create($this->dataForm);
+
+            if ($createSitsUser->getResult()) {
                 $urlRedirect = URLADM . "list-sits-users/index";
                 header("Location: $urlRedirect");
             } else {

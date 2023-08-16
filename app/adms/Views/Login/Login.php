@@ -8,24 +8,41 @@ if (isset($this->data['form'])) {
     $valorForm = $this->data['form'];
 }
 ?>
-<h1>Área Restrita</h1>
-<?php
-if (isset($_SESSION['msg'])) {
-    printf($_SESSION['msg']);
-    unset($_SESSION['msg']);
-}
-?>
+<div class="container-login">
+    <div class="wrapper-login">
+        <div class="title">
+            <span>Área Restrita</span>
+        </div>
 
-<span id="msg"></span>
+        <div class="msg-alert">
+            <?php
+            if (isset($_SESSION['msg'])) {
+                echo "<span id='msg'> " . $_SESSION['msg'] . "</span>";
+                unset($_SESSION['msg']);
+            } else {
+                echo "<span id='msg'></span>";
+            }
+            ?>
+        </div>
 
-<form method="POST" action="" id="form-login">
-    <label>Usuário: </label>
-    <input type="text" name="user" id="user" placeholder="Digite o susuário" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>" required>
-    <br><br>
-    <label>Senha: </label>
-    <input type="password" name="password" id="password" placeholder="Digite a senha" autocomplete="on" value="<?php isset($valorForm['password']) ? printf($valorForm['password']) : null ?>" required>
-    <br><br>
-    <button type="submit" name="SendLogin" value="Acessar">Acessar</button>
-</form>
-<br>
-<p><a href="<?php echo URLADM ?>new-user/index">Cadastrar</a> - <a href="<?php echo URLADM ?>recover-password/index">Esqueceu a senha?</a></p>
+        <span id="msg"></span>
+
+        <form method="POST" action="" class="form-login" id="form-login">
+            <div class="row">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" name="user" id="user" placeholder="Digite o susuário" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>">
+            </div>
+            <div class="row">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="password" id="password" placeholder="Digite a senha" autocomplete="on" value="<?php isset($valorForm['password']) ? printf($valorForm['password']) : null ?>">
+            </div>
+            <div class="row button">
+                <button type="submit" name="SendLogin" value="Acessar">Acessar</button>
+            </div>
+            <div class="signup-link">
+                <a href="<?php echo URLADM ?>new-user/index">Cadastrar</a> -
+                <a href="<?php echo URLADM ?>recover-password/index">Esqueceu a senha?</a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -12,32 +12,85 @@ if (isset($this->data['form'][0])) {
 }
 
 ?>
-<h1>Editar Perfil</h1>
-<?php
+<!-- Inicio do conteudo do administrativo -->
+<div class="wrapper">
+    <div class="row">
+        <div class="top-list">
+            <span class="title-content">Editar Perfil</span>
+            <div class="top-list-right">
+                <?php
+                echo "<a href='" . URLADM . "view-profile/index' class='btn-primary'>Perfil</a> ";
+                ?>
+            </div>
+        </div>
 
-echo "<a href='" . URLADM . "view-profile/index'>Perfil</a><br><br>";
+        <div class="content-adm">
+            <?php
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+            <span id="msg"></span>
+        </div>
 
-if (isset($_SESSION['msg'])) {
-    printf($_SESSION['msg']);
-    unset($_SESSION['msg']);
-}
-?>
+        <div class="content-adm-alert">
+            <form method="POST" action="" id="form-edit-profile" class="form-adm">
 
-<span id="msg"></span>
+                <div class="row-input">
+                    <div class="column">
+                        <?php
+                        $name = "";
+                        if (isset($valorForm['name'])) {
+                            $name = $valorForm['name'];
+                        }
+                        ?>
+                        <label class="title-input">Nome:<span class="text-danger">*</span></label>
+                        <input type="text" name="name" id="name" class="input-adm" placeholder="Digite o nome completo" value="<?php echo $name; ?>" required>
+                    </div>
+                    <div class="column">
+                        <?php
+                        $nick_name = "";
+                        if (isset($valorForm['nick_name'])) {
+                            $nick_name = $valorForm['nick_name'];
+                        }
+                        ?>
+                        <label class="title-input">Apelido:</label>
+                        <input type="text" name="nick_name" id="nick_name" class="input-adm" placeholder="Digite o apelido" value="<?php echo $nick_name; ?>">
+                    </div>
+                </div>
 
-<form method="POST" action="" id="form-edit-profile">
-    <label><span style="color: #f00;">*</span>Nome:</label>
-    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php isset($valorForm['name']) ? printf($valorForm['name']) : null ?>" required>
-    <br><br>
-    <label><span style="color: #f00;">*</span>Email:</label>
-    <input type="email" name="email" id="email" placeholder="Digite seu melhor e-mail" value="<?php isset($valorForm['email']) ? printf($valorForm['email']) : null ?>" required>
-    <br><br>
-    <label><span style="color: #f00;">*</span>Usuário:</label>
-    <input type="text" name="user" id="user" placeholder="Digite o usuário para acessar o adm" onkeyup="passwordStrength()" autocomplete="on" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>" required>
-    <br><br>
-    <label>Apelido:</label>
-    <input type="text" name="nick_name" id="nick_name" placeholder="Digite o apelido" onkeyup="passwordStrength()" autocomplete="on" value="<?php isset($valorForm['nick_name']) ? printf($valorForm['nick_name']) : null ?>">
-    <br><br>
-    <span style="color: #f00;">* Campo Óbrigatório</span><br><br>
-    <button type="submit" name="SendEditProfile" value="Salvar">Salvar</button>
-</form>
+                <div class="row-input">
+                    <div class="column">
+                        <?php
+                        $email = "";
+                        if (isset($valorForm['email'])) {
+                            $email = $valorForm['email'];
+                        }
+                        ?>
+                        <label class="title-input">E-mail:<span class="text-danger">*</span></label>
+                        <input type="email" name="email" id="email" class="input-adm" placeholder="Digite o seu melhor e-mail" value="<?php echo $email; ?>" required>
+
+                    </div>
+                    <div class="column">
+                        <?php
+                        $user = "";
+                        if (isset($valorForm['user'])) {
+                            $user = $valorForm['user'];
+                        }
+                        ?>
+                        <label class="title-input">Usuário:<span class="text-danger">*</span></label>
+                        <input type="text" name="user" id="user" class="input-adm" placeholder="Digite o usuário para acessar o administrativo" value="<?php echo $user; ?>" required>
+
+                    </div>
+                </div>
+
+                <p class="text-danger mb-5 fs-4">* Campo Obrigatório</p>
+
+                <button type="submit" name="SendEditProfile" class="btn-warning" value="Salvar">Salvar</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Fim do conteudo do administrativo -->

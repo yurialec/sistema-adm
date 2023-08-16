@@ -7,6 +7,7 @@ if (!defined('G9C8O7N6N5T4I')) {
     die("Erro: Página não encontrada!");
 }
 
+use App\adms\Models\AdmsAddColor;
 use App\adms\Models\ColorsAdmsAddColor;
 use Core\ConfigView;
 

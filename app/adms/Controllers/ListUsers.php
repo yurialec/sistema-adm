@@ -41,6 +41,8 @@ class ListUsers
             $this->data['listUsers'] = [];
         }
 
+        $this->data['sidebarActive'] = "list-users";
+
         $loadView = new ConfigView("adms/Views/Users/ListUsers", $this->data);
         $loadView->loadView();
     }

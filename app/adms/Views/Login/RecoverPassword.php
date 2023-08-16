@@ -8,21 +8,37 @@ if (isset($this->data['form'])) {
     $valorForm = $this->data['form'];
 }
 ?>
-<h1>Recuperar Senha</h1>
-<?php
-if (isset($_SESSION['msg'])) {
-    printf($_SESSION['msg']);
-    unset($_SESSION['msg']);
-}
-?>
+<div class="container-login">
+    <div class="wrapper-login">
 
-<span id="msg"></span>
+        <div class="title">
+            <span>Recuperar Senha</span>
+        </div>
 
-<form method="POST" action="" id="form-recover-pass">
-    <label>Email: </label>
-    <input type="email" name="email" id="email" placeholder="Digite seu e-mail" autocomplete="on" value="<?php isset($valorForm['email']) ? printf($valorForm['email']) : null ?>" required>
-    <br><br>
-    <button type="submit" name="SendRecoverPass" value="Enviar">Recuperar</button>
-</form>
-<br>
-<p><a href="<?php echo URLADM ?>">Clique Aqui </a>para acessar</p>
+        <div class="msg-alert">
+            <?php
+            if (isset($_SESSION['msg'])) {
+                echo "<span id='msg'> " . $_SESSION['msg'] . "</span>";
+                unset($_SESSION['msg']);
+            } else {
+                echo "<span id='msg'></span>";
+            }
+            ?>
+        </div>
+
+        <form method="POST" action="" id="form-recover-pass" class="form-login">
+            <div class="row">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" name="email" id="email" placeholder="Digite o seu e-mail" value="<?php isset($valorForm['user']) ? printf($valorForm['user']) : null ?>">
+            </div>
+
+            <div class="row button">
+                <button type="submit" name="SendRecoverPass" value="Recuperar">Recuperar</button>
+            </div>
+
+            <div class="signup-link">
+                <a href="<?php echo URLADM; ?>">Clique aqui</a> para acessar
+            </div>
+        </form>
+    </div>
+</div>

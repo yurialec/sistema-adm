@@ -25,9 +25,9 @@ class ConfigView
     public function loadViewLogin(): void
     {
         if (file_exists('app/' . $this->nameView . '.php')) {
-            include 'app/adms/Views/Include/Head.php';
+            include 'app/adms/Views/Include/head_login.php';
             include 'app/' . $this->nameView . '.php';
-            include 'app/adms/Views/Include/Footer.php';
+            include 'app/adms/Views/Include/Footer_login.php';
         } else {
             die("Erro 005: Por favor tente novamente. Caso o problema persista, entre
                 em contato com o administrador " . EMAILADM);
@@ -38,6 +38,7 @@ class ConfigView
     {
         if (file_exists('app/' . $this->nameView . '.php')) {
             include 'app/adms/Views/Include/Head.php';
+            include 'app/adms/Views/Include/NavBar.php';
             include 'app/adms/Views/Include/Menu.php';
             include 'app/' . $this->nameView . '.php';
             include 'app/adms/Views/Include/Footer.php';

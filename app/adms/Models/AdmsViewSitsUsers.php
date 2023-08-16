@@ -14,7 +14,7 @@ class AdmsViewSitsUsers
     //Recebe true quando executar com sucesso
     private bool $result = false;
     //Recebe os registro do banco de dados
-    private array $resultBd;
+    private array|null $resultBd;
     /** Recebe o id do registro pela url @var integer|null */
     private string|int|null $id;
 
@@ -39,7 +39,7 @@ class AdmsViewSitsUsers
                     adms_sits_users.created, adms_sits_users.modified 
             FROM adms_sits_users
             INNER JOIN adms_colors
-            ON adms_colors.id = adms_sits_users.adms_color_id
+            ON adms_colors.id = adms_sits_users.adms_color
             WHERE adms_sits_users.id=:id
             LIMIT :limit",
             "id={$this->id}&limit=1"

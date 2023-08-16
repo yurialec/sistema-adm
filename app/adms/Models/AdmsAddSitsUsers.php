@@ -47,14 +47,14 @@ class AdmsAddSitsUsers
     {
         $this->data['created'] = date("Y-m-d H:i:s");
 
-        $createUser = new AdmsCreate();
-        $createUser->exeCreate("adms_sits_users", $this->data);
+        $createSitUser = new \App\adms\Models\helper\AdmsCreate();
+        $createSitUser->exeCreate("adms_sits_users", $this->data);
 
-        if ($createUser->getResult()) {
-            $_SESSION['msg'] = "<p style='color: #008000;'>Situação cadastrada com sucesso!</p>";
+        if ($createSitUser->getResult()) {
+            $_SESSION['msg'] = "<p class='alert-success'>Situação cadastrada com sucesso!</p>";
             $this->result = true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Situação não cadastrada com sucesso!</p>";
+            $_SESSION['msg'] = "<p class='alert-danger'>Erro: Situação não cadastrada com sucesso!</p>";
             $this->result = false;
         }
     }

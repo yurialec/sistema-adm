@@ -43,16 +43,16 @@ class AdmsEditConfEmail
     {
         $this->id = $id;
 
-        $viewColor = new AdmsRead();
-        $viewColor->fullRead(
-            "SELECT id, title, name, email, host, username, smtp, port, created, modified
+        $viewConfEmail = new AdmsRead();
+        $viewConfEmail->fullRead(
+            "SELECT id, title, name, email, host, username, smtp, port
             FROM adms_confs_emails
             WHERE id=:id
             LIMIT :limit",
             "id={$this->id}&limit=1"
         );
 
-        $this->resultBd = $viewColor->getResult();
+        $this->resultBd = $viewConfEmail->getResult();
 
         if ($this->resultBd) {
             $this->result = true;
@@ -81,11 +81,10 @@ class AdmsEditConfEmail
     {
         $this->data['modified'] = date("Y-m-d H:i:s");
 
-        $updateUser = new AdmsUpdate();
+        $updateConfEmail = new AdmsUpdate();
+        $updateConfEmail->exeUpdate("adms_confs_emails", $this->data, "WHERE id=:id", "id={$this->data['id']}");
 
-        $updateUser->exeUpdate("adms_confs_emails", $this->data, "WHERE id=:id", "id={$this->data['id']}");
-
-        if ($updateUser->getResult()) {
+        if ($updateConfEmail->getResult()) {
             $_SESSION['msg'] = "<p style='color: #008000;'>Configuração atualizada com sucesso!</p>";
             $this->result = true;
         } else {

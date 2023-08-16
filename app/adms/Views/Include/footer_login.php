@@ -4,10 +4,7 @@ if (!defined('G9C8O7N6N5T4I')) {
     die("Erro: Página não encontrada!");
 }
 ?>
-
-</div>
-
-<script src="<?php echo URLADM; ?>app/adms/assets/js/custom_adms.js"></script>
+<script src="<?php echo URLADM; ?>app/adms/assets/js/custom_login.js"></script>
 </body>
 
 </html>

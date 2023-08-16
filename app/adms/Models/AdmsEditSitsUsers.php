@@ -47,7 +47,7 @@ class AdmsEditSitsUsers
 
         $viewUser = new AdmsRead();
         $viewUser->fullRead(
-            "SELECT id, name, adms_color_id
+            "SELECT id, name, adms_color
             FROM adms_sits_users
             WHERE id=:id
             LIMIT :limit",

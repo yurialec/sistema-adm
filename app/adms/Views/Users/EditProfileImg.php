@@ -12,36 +12,62 @@ if (isset($this->data['form'][0])) {
 }
 
 ?>
-<h1>Editar Imagem</h1>
-<?php
+<!-- Inicio do conteudo do administrativo -->
+<div class="wrapper">
+    <div class="row">
+        <div class="top-list">
+            <span class="title-content">Editar Foto</span>
+            <div class="top-list-right">
+                <?php
+                echo "<a href='" . URLADM . "view-profile/index' class='btn-primary'>Perfil</a> ";
+                ?>
+            </div>
+        </div>
 
-if (isset($_SESSION['msg'])) {
-    printf($_SESSION['msg']);
-    unset($_SESSION['msg']);
-}
-?>
+        <div class="content-adm-alert">
+            <?php
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+            <span id="msg"></span>
+        </div>
 
-<span id="msg"></span>
+        <div class="content-adm">
+            <form method="POST" action="" id="form-edit-prof-img" class="form-adm" enctype="multipart/form-data">
 
-<form method="POST" action="" id="form-edit-prof-img" enctype="multipart/form-data">
-    <label><span style="color: #f00;">*</span>Imagem 300x300:</label>
-    <input type="file" name="new_image" id="new_image" onchange="inputFileValImg()"><br><br>
+                <div class="row-input">
+                    <div class="column">
+                        <?php
+                        $name = "";
+                        if (isset($valorForm['name'])) {
+                            $name = $valorForm['name'];
+                        }
+                        ?>
+                        <label class="title-input">Imagem:<span class="text-danger">*</span> 300x300</label>
+                        <input type="file" name="new_image" id="new_image" class="input-adm" onchange="inputFileValImg()">
+                    </div>
+                    <div class="column">
+                        <?php
+                        if ((!empty($valorForm['image'])) and (file_exists("app/adms/assets/image/users/" . $_SESSION['user_id'] . "/" . $valorForm['image']))) {
+                            $old_image = URLADM . "app/adms/assets/image/users/" . $_SESSION['user_id'] . "/" . $valorForm['image'];
+                        } else {
+                            $old_image = URLADM . "app/adms/assets/image/users/icon_user.png";
+                        }
+                        ?>
+                        <span id="preview-img">
+                            <img src="<?php echo $old_image; ?>" alt="Imagem" style="width: 100px; height: 100px;">
+                        </span>
+                    </div>
+                </div>
 
-    <?php
+                <p class="text-danger mb-5 fs-4">* Campo Obrigatório</p>
 
-    if ((!empty($valorForm['image'])) and (file_exists("app/adms/assets/image/users/" . $_SESSION['user_id'] . "/" . $valorForm['image']))) {
-        $old_image = URLADM . "app/adms/assets/image/users/" . $_SESSION['user_id'] . "/" . $valorForm['image'];
-    } else {
-        $old_image = URLADM . "app/adms/assets/image/users/icon_user.png";
-    }
+                <button type="submit" name="SendEditProfImage" class="btn-warning" value="Salvar">Salvar</button>
 
-    ?>
-    <span id="preview-img">
-        <img src="<?= $old_image ?>" alt="Imagem" style="width: 100px; height: 100px;">
-    </span>
-    <br>
-    <br>
-
-    <span style="color: #f00;">* Campo Óbrigatório</span><br><br>
-    <button type="submit" name="SendEditProfImg" value="Salvar">Salvar</button>
-</form>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Fim do conteudo do administrativo -->

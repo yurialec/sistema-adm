@@ -12,38 +12,56 @@ if (isset($this->data['form'][0])) {
 }
 
 ?>
-<h1>Editar Imagem</h1>
-<?php
+<div class="wrapper">
+    <div class="row">
+        <div class="top-list">
+            <span class="title-content">Editar Imagem</span>
+            <div class="top-list-right">
+                <?php
+                echo "<a href='" . URLADM . "list-users/index' class='btn-info'>Listar</a> ";
+                if (isset($valorForm['id'])) {
+                    echo "<a href='" . URLADM . "view-users/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                }
+                ?>
+            </div>
+        </div>
 
-echo "<a href='" . URLADM . "list-users/index'>Listar usuários</a><br>";
-if (isset($valorForm['id'])) {
-    echo "<a href=' " . URLADM . "view-users/index/" . $valorForm['id'] . "'>Visualizar</a><br><br>";
-}
+        <div class="content-adm-alert">
+            <?php
+            if (isset($_SESSION['msg'])) {
+                echo $_SESSION['msg'];
+                unset($_SESSION['msg']);
+            }
+            ?>
+            <span id="msg"></span>
+        </div>
 
-if (isset($_SESSION['msg'])) {
-    printf($_SESSION['msg']);
-    unset($_SESSION['msg']);
-}
-?>
+        <div class="content-adm">
 
-<span id="msg"></span>
+            <form method="POST" action="" id="form-edit-user-image" class="form-adm" enctype="multipart/form-data">
+                <div class="row-input">
+                    <div class="column">
+                        <input type="hidden" name="id" id="id" value="<?php printf($valorForm['id']) ?>">
+                        <label><span style="color: #f00;">*</span>Imagem 300x300:</label>
+                        <input type="file" name="new_image" id="new_image" onchange="inputFileValImg()"><br><br>
+                    </div>
 
-<form method="POST" action="" id="form-edit-user-image" enctype="multipart/form-data">
-    <input type="hidden" name="id" id="id" value="<?php printf($valorForm['id']) ?>">
-    <label><span style="color: #f00;">*</span>Imagem 300x300:</label>
-    <input type="file" name="new_image" id="new_image" onchange="inputFileValImg()"><br><br>
-
-    <?php
-    if ((!empty($valorForm['image'])) and (file_exists("app/adms/assets/image/users/" . $valorForm['id'] . "/" . $valorForm['image']))) {
-        $old_image = URLADM . "app/adms/assets/image/users/" . $valorForm['id'] . "/" . $valorForm['image'];
-    } else {
-        $old_image = URLADM . "app/adms/assets/image/users/icon_user.png";
-    }
-    ?>
-    <span id="preview-img">
-        <img src="<?php echo $old_image; ?>" alt="Imagem" style="width: 100px; height: 100px;">
-    </span><br><br>
-
-    <span style="color: #f00;">* Campo Óbrigatório</span><br><br>
-    <button type="submit" name="SendEditImageUser" value="Salvar">Salvar</button>
-</form>
+                    <div class="column">
+                        <?php
+                        if ((!empty($valorForm['image'])) and (file_exists("app/adms/assets/image/users/" . $valorForm['id'] . "/" . $valorForm['image']))) {
+                            $old_image = URLADM . "app/adms/assets/image/users/" . $valorForm['id'] . "/" . $valorForm['image'];
+                        } else {
+                            $old_image = URLADM . "app/adms/assets/image/users/icon_user.png";
+                        }
+                        ?>
+                        <span id="preview-img">
+                            <img src="<?php echo $old_image; ?>" alt="Imagem" style="width: 100px; height: 100px;">
+                        </span><br><br>
+                    </div>
+                </div>
+                <p class="text-danger mb-5 fs-4">* Campo Obrigatório</p>
+                <button type="submit" name="SendEditImageUser" class="btn-warning" value="Salvar">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>

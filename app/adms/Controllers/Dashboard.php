@@ -7,6 +7,7 @@ if (!defined('G9C8O7N6N5T4I')) {
     die("Erro: Página não encontrada!");
 }
 
+use App\adms\Models\AdmsDashboard;
 use Core\ConfigView;
 
 /**
@@ -27,6 +28,17 @@ class Dashboard
      */
     public function index(): void
     {
+        $countUsers = new AdmsDashboard();
+        $countUsers->countUsers();
+
+        if ($countUsers->getResult()) {
+            $this->data['countUsers'] = $countUsers->getResultBd();
+        } else {
+            $this->data['countUsers'] = false;
+        }
+
+        $this->data['sidebarActive'] = "dashboard";
+
         $loadView = new ConfigView("adms/Views/Dashboard/Dashboard", $this->data);
         $loadView->loadView();
     }
