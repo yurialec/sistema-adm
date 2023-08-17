@@ -9,7 +9,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 
 use App\adms\Models\Helper\AdmsRead;
 
-class AdmsViewUsers
+class AdmsViewAccessLevels
 {
     //Recebe true quando executar com sucesso
     private bool $result = false;
@@ -30,31 +30,24 @@ class AdmsViewUsers
         return $this->resultBd;
     }
 
-    public function ViewUser(int $id): void
+    public function viewLevel(int $id): void
     {
         $this->id = $id;
-        $viewUser = new AdmsRead();
-        $viewUser->fullRead(
-            "SELECT usr.id, usr.name AS name_usr, usr.email, usr.nick_name,
-                    usr.user, usr.image, usr.created_at, usr.modified,
-            sit.name AS name_sit,
-            color.color,
-            level.name as name_level
-            FROM adms_users AS usr
-            INNER JOIN adms_sits_users AS sit ON sit.id =  usr.adms_sits_user_id
-            INNER JOIN adms_colors AS color ON color.id = sit.adms_color
-            INNER JOIN adms_access_levels AS level ON level.id = usr.adms_access_level_id
-            WHERE usr.id=:id
+        $viewAccessLevel = new AdmsRead();
+        $viewAccessLevel->fullRead(
+            "SELECT id, name, order_levels, created, modified
+            FROM adms_access_levels
+            WHERE id=:id
             LIMIT :limit",
             "id={$this->id}&limit=1"
         );
 
-        $this->resultBd = $viewUser->getResult();
+        $this->resultBd = $viewAccessLevel->getResult();
 
         if ($this->resultBd) {
             $this->result = true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00'>Usuário não encontrado!<p>";
+            $_SESSION['msg'] = "<p style='color: #f00'>Nível de acesso não encontrado!<p>";
             $this->result = false;
         }
     }

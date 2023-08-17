@@ -29,9 +29,14 @@ class AdmsLogin extends AdmsConn
 
         //Retorna somente as colunas indicadas
         $viewUser->fullRead(
-            "SELECT id, name, nick_name, email, password, image, adms_sits_user_id
-                                FROM adms_users
-                                WHERE user =:user OR email =:email LIMIT :limit",
+            "SELECT usr.id, usr.name, usr.nick_name, usr.email, usr.password,
+                    usr.image, usr.adms_sits_user_id, usr.adms_access_level_id ,
+                                level.order_levels
+                                FROM adms_users as usr
+                                INNER JOIN adms_access_levels AS level ON level.id = usr.adms_access_level_id
+                                WHERE usr.user =:user
+                                OR usr.email =:email
+                                LIMIT :limit",
             "user={$this->data['user']}&email={$this->data['user']}&limit=1"
         );
 
@@ -73,6 +78,8 @@ class AdmsLogin extends AdmsConn
             $_SESSION['user_nick_name'] = $this->resultDb[0]['nick_name'];
             $_SESSION['user_email'] = $this->resultDb[0]['email'];
             $_SESSION['user_image'] = $this->resultDb[0]['image'];
+            $_SESSION['adms_access_level_id '] = $this->resultDb[0]['adms_access_level_id'];
+            $_SESSION['order_levels'] = $this->resultDb[0]['order_levels'];
 
             $this->result = true;
         } else {

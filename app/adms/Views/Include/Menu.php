@@ -48,6 +48,12 @@ if (isset($this->data['sidebarActive'])) {
         } ?>
         <a href="<?php echo URLADM; ?>list-sits-users/index" class="sidebar-nav <?php echo $list_sits_users; ?>"><i class="icon fa-solid fa-user-check"></i><span>Situações do Usuário</span></a>
 
+        <?php $list_access_levels = "";
+        if ($sidebar_active == "list-access-levels") {
+            $list_access_levels = "active";
+        } ?>
+        <a href="<?php echo URLADM; ?>list-access-levels/index" class="sidebar-nav <?php echo $list_access_levels; ?>"><i class="icon fa-solid fa-key"></i><span>Nível de Acesso</span></a>
+
         <?php $list_colors = "";
         if ($sidebar_active == "list-colors") {
             $list_colors = "active";

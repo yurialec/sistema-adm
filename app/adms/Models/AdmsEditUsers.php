@@ -50,7 +50,8 @@ class AdmsEditUsers
 
         $viewUser = new AdmsRead();
         $viewUser->fullRead(
-            "SELECT usr.id, usr.name, usr.email, usr.nick_name, usr.user, usr.image, usr.adms_sits_user_id
+            "SELECT usr.id, usr.name, usr.email, usr.nick_name,
+            usr.user, usr.image, usr.adms_sits_user_id, usr.adms_access_level_id
             FROM adms_users as usr
             WHERE usr.id=:id
             LIMIT :limit",
@@ -66,7 +67,7 @@ class AdmsEditUsers
             $this->result = false;
         }
     }
-    
+
     public function updateUser(array $data = null): void
     {
         $this->data = $data;
@@ -123,11 +124,21 @@ class AdmsEditUsers
     public function listSelect(): array
     {
         $list = new AdmsRead();
+
         $list->fullRead("SELECT id as id_sit, name as name_sit FROM adms_sits_users ORDER BY name ASC");
         $records['sit'] = $list->getResult();
 
-        $this->listRecordEdit = ['sit' => $records['sit']];
-        
+        $list->fullRead("SELECT id as id_level, name as name_level
+                            FROM adms_access_levels
+                            WHERE order_levels >=:order_levels
+                            ORDER BY name ASC", "order_levels=" . $_SESSION['order_levels']);
+        $records['level'] = $list->getResult();
+
+        $this->listRecordEdit = [
+            'sit' => $records['sit'],
+            'level' => $records['level']
+        ];
+
         return $this->listRecordEdit;
     }
 }

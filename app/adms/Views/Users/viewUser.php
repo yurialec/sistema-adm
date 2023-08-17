@@ -86,6 +86,11 @@ if (!defined('G9C8O7N6N5T4I')) {
                 </div>
 
                 <div class="view-det-adm">
+                    <span class="view-adm-title">Nível de acesso: </span>
+                    <span class="view-adm-info"><?php echo $name_level; ?></span>
+                </div>
+
+                <div class="view-det-adm">
                     <span class="view-adm-title">Cadastrado: </span>
                     <span class="view-adm-info"><?php echo date('d/m/Y H:i:s', strtotime($created_at)); ?></span>
                 </div>
