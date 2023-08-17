@@ -471,3 +471,21 @@ function previewImage(new_image) {
     // readAsDataURL - Retorna os dados do formato blob como uma URL de dados - Blob representa um arquivo
     reader.readAsDataURL(new_image.files[0]);
 }
+
+/* Inicio dropdown sidebar */
+
+var dropdownSidebar = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdownSidebar.length; i++) {
+    dropdownSidebar[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+        }
+    });
+}
+/* Fim dropdown sidebar */
