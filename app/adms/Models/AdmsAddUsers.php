@@ -93,7 +93,7 @@ class AdmsAddUsers
 
         $list->fullRead("SELECT id as id_level, name as name_level
                             FROM adms_access_levels
-                            WHERE order_levels >=:order_levels
+                            WHERE order_levels >:order_levels
                             ORDER BY name ASC", "order_levels=" . $_SESSION['order_levels']);
         $records['level'] = $list->getResult();
 

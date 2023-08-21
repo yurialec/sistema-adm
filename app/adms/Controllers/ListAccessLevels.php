@@ -41,6 +41,7 @@ class ListAccessLevels
             $this->data['ListAccessLevels'] = [];
         }
 
+        $this->data['pag'] = $this->page;
         $this->data['sidebarActive'] = "list-access-levels";
 
         $loadView = new ConfigView("adms/Views/AccessLevels/ListAccessLevels", $this->data);

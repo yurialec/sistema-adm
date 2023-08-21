@@ -31,6 +31,7 @@ class ViewAccessLevel
     {
         if (!empty($id)) {
             $this->id = (int) $id;
+            
             $viewAccessLevel = new AdmsViewAccessLevels();
             $viewAccessLevel->viewLevel($this->id);
 
@@ -42,7 +43,7 @@ class ViewAccessLevel
                 header("Location: $urlRedirect");
             }
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00;'>Nível de acesso não encontrado!</p>";
+            $_SESSION['msg'] = "<p class='alert-danger'>Nível de acesso não encontrado!</p>";
             $urlRedirect = URLADM . "list-access-levels/index";
             header("Location: $urlRedirect");
         }

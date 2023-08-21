@@ -48,9 +48,10 @@ if (!defined('G9C8O7N6N5T4I')) {
                                 <button onclick="actionDropdown(<?php echo $id; ?>)" class="dropdown-btn-action">Ações</button>
                                 <div id="actionDropdown<?php echo $id; ?>" class="dropdown-action-item">
                                     <?php
-                                    echo "<a href='" . URLADM . "view-access-level/index/$id'>Visualizar</a>";
-                                    echo "<a href='" . URLADM . "edit-access-level/index/$id'>Editar</a>";
-                                    echo "<a href='" . URLADM . "delete-access-level/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'>Apagar</a>";
+                                    echo "<a href='" . URLADM . "order-access-level/index/$id?pag=" . $this->data['pag'] . "'><i class='fa-solid fa-arrow-up-short-wide'></i> Ordem</a>";
+                                    echo "<a href='" . URLADM . "view-access-level/index/$id'><i class='fa-regular fa-eye'></i> Visualizar</a>";
+                                    echo "<a href='" . URLADM . "edit-access-level/index/$id'><i class='fa-regular fa-pen-to-square'></i> Editar</a>";
+                                    echo "<a href='" . URLADM . "delete-access-level/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'><i class='fa-regular fa-trash-can'></i> Apagar</a>";
                                     ?>
                                 </div>
                             </div>

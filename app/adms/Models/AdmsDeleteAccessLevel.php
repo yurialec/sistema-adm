@@ -58,8 +58,9 @@ class AdmsDeleteAccessLevel
             "SELECT id
                             FROM adms_access_levels                           
                             WHERE id=:id
+                            AND order_levels >:order_levels
                             LIMIT :limit",
-            "id={$this->id}&limit=1"
+            "id={$this->id}&order_levels=" . $_SESSION['order_levels'] . "&limit=1"
         );
 
         $this->resultBd = $ViewAccessLevel->getResult();
