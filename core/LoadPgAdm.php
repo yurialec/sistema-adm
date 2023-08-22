@@ -91,7 +91,9 @@ class LoadPgAdm
             "ListConfEmail", "ViewConfEmail", "EditConfEmail", "DeleteConfEmail",
             "EditConfEmailPassword", "AddConfEmail", "ListAccessLevels", "ViewAccessLevel",
             "EditAccessLevel", "EditAccessLevel", "DeleteAccessLevel", "AddAccessLevel",
-            "OrderAccessLevel"
+            "OrderAccessLevel", "ListTypesPgs", "ViewTypesPgs", "EditTypesPgs", "AddTypePg",
+            "OrderTypePgs", "DeleteTypesPgs", "ListGroupsPages", "ViewGroupPage",
+            "EditGroupPage", "DeleteGroupPage", "AddGroupPage", "OrderGroupPage"
         ];
 
         if (in_array($this->urlController, $this->listPgPrivate)) {

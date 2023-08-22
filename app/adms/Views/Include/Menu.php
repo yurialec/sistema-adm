@@ -66,6 +66,18 @@ if (isset($this->data['sidebarActive'])) {
         } ?>
         <a href="<?php echo URLADM; ?>list-conf-email/index" class="sidebar-nav <?php echo $list_conf_email; ?>"><i class="icon fa-solid fa-envelope"></i><span>Configurações de E-mail</span></a>
 
+        <?php $list_types_pages = "";
+        if ($sidebar_active == "list-types-pgs") {
+            $list_types_pages = "active";
+        } ?>
+        <a href="<?php echo URLADM; ?>list-types-pgs/index" class="sidebar-nav <?php echo $list_types_pages; ?>"><i class="icon fa-solid fa-file"></i><span>Tipos de Páginas</span></a>
+
+        <?php $list_groups_pages = "";
+        if ($sidebar_active == "list-groups-pages") {
+            $list_groups_pages = "active";
+        } ?>
+        <a href="<?php echo URLADM; ?>list-groups-pages/index" class="sidebar-nav <?php echo $list_groups_pages; ?>"><i class="icon fa-solid fa-file-lines"></i><span>Grupos de Páginas</span></a>
+
         <a href="<?php echo URLADM; ?>logout/index" class="sidebar-nav"><i class="icon fa-solid fa-arrow-right-from-bracket"></i><span>Sair</span></a>
 
     </div>
