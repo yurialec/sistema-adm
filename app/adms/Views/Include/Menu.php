@@ -77,6 +77,12 @@ if (isset($this->data['sidebarActive'])) {
             $list_groups_pages = "active";
         } ?>
         <a href="<?php echo URLADM; ?>list-groups-pages/index" class="sidebar-nav <?php echo $list_groups_pages; ?>"><i class="icon fa-solid fa-file-lines"></i><span>Grupos de Páginas</span></a>
+        
+        <?php $list_situation_pages = "";
+        if ($sidebar_active == "list-situation-pages") {
+            $list_situation_pages = "active";
+        } ?>
+        <a href="<?php echo URLADM; ?>list-situation-pages/index" class="sidebar-nav <?php echo $list_situation_pages; ?>"><i class="icon fa-solid fa-file-circle-question"></i><span>Situação da Página</span></a>
 
         <a href="<?php echo URLADM; ?>logout/index" class="sidebar-nav"><i class="icon fa-solid fa-arrow-right-from-bracket"></i><span>Sair</span></a>
 
