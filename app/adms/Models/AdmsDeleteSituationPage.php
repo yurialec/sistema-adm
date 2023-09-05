@@ -35,11 +35,11 @@ class AdmsDeleteSituationPage
     {
         $this->id = (int) $id;
 
-        if ($this->viewSitsPg()) {
-            $deleteSitsPg = new AdmsDelete();
-            $deleteSitsPg->exeDelete("adms_sits_pgs", "WHERE id=:id", "id={$this->id}");
+        if ($this->viewPg()) {
+            $deletePg = new AdmsDelete();
+            $deletePg->exeDelete("adms_pages", "WHERE id=:id", "id={$this->id}");
 
-            if ($deleteSitsPg->getResult()) {
+            if ($deletePg->getResult()) {
                 $_SESSION['msg'] = "<p style='color: #008000;'>Registro excluido com sucesso!</p>";
                 $this->result = true;
             } else {
@@ -51,12 +51,12 @@ class AdmsDeleteSituationPage
         }
     }
 
-    private function viewSitsPg(): bool
+    private function viewPg(): bool
     {
         $viewSitsPg = new \App\adms\Models\helper\AdmsRead();
         $viewSitsPg->fullRead(
             "SELECT id
-                            FROM adms_sits_pgs                           
+                            FROM adms_pages                           
                             WHERE id=:id
                             LIMIT :limit",
             "id={$this->id}&limit=1"
@@ -66,7 +66,7 @@ class AdmsDeleteSituationPage
         if ($this->resultBd) {
             return true;
         } else {
-            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Situação da Página não encontrada!</p>";
+            $_SESSION['msg'] = "<p style='color: #f00'>Erro: Página não encontrada!</p>";
             return false;
         }
     }
