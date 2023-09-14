@@ -13,7 +13,8 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Listar Páginas</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "add-page/index' class='btn-success'>Cadastrar</a>";
+                echo "<a href='" . URLADM . "add-page/index' class='btn-success'>Cadastrar</a> ";
+                echo "<a href='" . URLADM . "sync-pages-levels/index' class='btn-warning'>Sincronizar</a>";
                 ?>
             </div>
         </div>

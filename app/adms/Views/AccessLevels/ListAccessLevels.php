@@ -13,7 +13,8 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Listar Níveis de Acesso</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "add-access-level/index' class='btn-success'>Cadastrar</a>";
+                echo "<a href='" . URLADM . "add-access-level/index' class='btn-success'>Cadastrar</a> ";
+                echo "<a href='" . URLADM . "sync-pages-levels/index' class='btn-warning'>Sincronizar</a>";
                 ?>
             </div>
         </div>
@@ -49,8 +50,9 @@ if (!defined('G9C8O7N6N5T4I')) {
                                 <div id="actionDropdown<?php echo $id; ?>" class="dropdown-action-item">
                                     <?php
                                     echo "<a href='" . URLADM . "order-access-level/index/$id?pag=" . $this->data['pag'] . "'><i class='fa-solid fa-arrow-up-short-wide'></i> Ordem</a>";
-                                    echo "<a href='" . URLADM . "view-access-level/index/$id'><i class='fa-regular fa-eye'></i> Visualizar</a>";
-                                    echo "<a href='" . URLADM . "edit-access-level/index/$id'><i class='fa-regular fa-pen-to-square'></i> Editar</a>";
+                                    echo "<a href='" . URLADM . "list-permission/index/?level=$id'><i class='fa-solid fa-house-lock'></i> Permissão</a>";
+                                    echo "<a href='" . URLADM . "view-access-level/index/$id'><i class='fa-solid fa-eye'></i> Visualizar</a>";
+                                    echo "<a href='" . URLADM . "edit-access-level/index/$id'><i class='fa-solid fa-pen-to-square'></i> Editar</a>";
                                     echo "<a href='" . URLADM . "delete-access-level/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'><i class='fa-regular fa-trash-can'></i> Apagar</a>";
                                     ?>
                                 </div>
@@ -63,7 +65,7 @@ if (!defined('G9C8O7N6N5T4I')) {
             </tbody>
         </table>
 
-        <?php echo $this->data['pagination']; ?>
+        <?php $this->data['pagination'] !== [] ? printf($this->data['pagination']) : NULL?>
     </div>
 </div>
 <!-- Fim do conteudo do administrativo -->

@@ -39,6 +39,7 @@ class ListAccessLevels
             $this->data['pagination'] = $listAccessLevels->getResultPg();
         } else {
             $this->data['ListAccessLevels'] = [];
+            $this->data['pagination'] = [];
         }
 
         $this->data['pag'] = $this->page;

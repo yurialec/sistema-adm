@@ -16,8 +16,10 @@ class AdmsAddPage
     private array|null $data;
     /** Recebe true quando executar o processo com sucesso @var boolean */
     private bool $result;
-
+    /** @var array Recebe as informações que serão usadas no dropdown do formulário*/
     private array $listRecordAdd;
+    /** @var array $dataExitVal Recebe as informações que serão retiradas da validação*/
+    private array $dataExitVal;
 
     /**
      * @return bool Retorna true quando executar o processo com sucesso e false quando houver erro
@@ -31,6 +33,10 @@ class AdmsAddPage
     {
         $this->data = $data;
 
+        $this->dataExitVal['icon'] = $this->data['icon'];
+        $this->dataExitVal['obs'] = $this->data['obs'];
+        unset($this->data['obs'], $this->data['icon']);
+
         $valEmptyField = new AdmsValEmptyField();
         $valEmptyField->valField($this->data);
 
@@ -43,6 +49,8 @@ class AdmsAddPage
 
     private function add(): void
     {
+        $this->data['icon'] = $this->dataExitVal['icon'];
+        $this->data['obs'] = $this->dataExitVal['obs'];
         $this->data['created'] = date("Y-m-d H:i:s");
 
         $createSituationPage = new AdmsCreate();

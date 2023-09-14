@@ -28,7 +28,7 @@ class EditPage
     public function index(string|int|null $id): void
     {
         $this->dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
+        
         if ((!empty($id)) and (empty($this->dataForm['SendEditPage']))) {
             $this->id = (int) $id;
 

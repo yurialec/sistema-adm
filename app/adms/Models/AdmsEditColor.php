@@ -82,11 +82,11 @@ class AdmsEditColor
     {
         $this->data['modified'] = date("Y-m-d H:i:s");
 
-        $updateUser = new AdmsUpdate();
+        $updateColor = new AdmsUpdate();
 
-        $updateUser->exeUpdate("adms_colors", $this->data, "WHERE id=:id", "id={$this->data['id']}");
+        $updateColor->exeUpdate("adms_colors", $this->data, "WHERE id=:id", "id={$this->data['id']}");
 
-        if ($updateUser->getResult()) {
+        if ($updateColor->getResult()) {
             $_SESSION['msg'] = "<p style='color: #008000;'>Cor atualizada com sucesso!</p>";
             $this->result = true;
         } else {

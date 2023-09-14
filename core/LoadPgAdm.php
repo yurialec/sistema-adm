@@ -95,7 +95,8 @@ class LoadPgAdm
             "OrderTypePgs", "DeleteTypesPgs", "ListGroupsPages", "ViewGroupPage",
             "EditGroupPage", "DeleteGroupPage", "AddGroupPage", "OrderGroupPage",
             "ListSituationPages", "ViewSituationPage", "EditSituationPage", "AddSituationPage",
-            "DeleteSituationPage", "ListPages", "ViewPage", "EditPage", "AddPage", "DeletePage"
+            "DeleteSituationPage", "ListPages", "ViewPage", "EditPage", "AddPage", "DeletePage",
+            "ListPermission", "SyncPagesLevels", "EditPermission"
         ];
 
         if (in_array($this->urlController, $this->listPgPrivate)) {

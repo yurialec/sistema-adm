@@ -82,6 +82,10 @@ class AdmsEditPage
     {
         $this->data = $data;
 
+        $this->dataExitVal['icon'] = $this->data['icon'];
+        $this->dataExitVal['obs'] = $this->data['obs'];
+        unset($this->data['icon'], $this->data['obs']);
+
         $valEmptyField = new AdmsValEmptyField();
         $valEmptyField->valField($this->data);
 
@@ -95,13 +99,15 @@ class AdmsEditPage
 
     private function edit(): void
     {
+        $this->data['icon'] = $this->dataExitVal['icon'];
+        $this->data['obs'] = $this->dataExitVal['obs'];
         $this->data['modified'] = date("Y-m-d H:i:s");
 
-        $updateUser = new AdmsUpdate();
+        $updatePage = new AdmsUpdate();
 
-        $updateUser->exeUpdate("adms_pages", $this->data, "WHERE id=:id", "id={$this->data['id']}");
+        $updatePage->exeUpdate("adms_pages", $this->data, "WHERE id=:id", "id={$this->data['id']}");
 
-        if ($updateUser->getResult()) {
+        if ($updatePage->getResult()) {
             $_SESSION['msg'] = "<p style='color: #008000;'>Registro atualizado com sucesso!</p>";
             $this->result = true;
         } else {
