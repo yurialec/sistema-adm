@@ -11,10 +11,19 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Detalhes da Situação</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-sits-users/index' class='btn-info'>Listar</a> ";
+
+                if ($this->data['button']['list_sits_users']) {
+                    echo "<a href='" . URLADM . "list-sits-users/index' class='btn-info'>Listar</a> ";
+                }
+
                 if (!empty($this->data['viewSitsUser'])) {
-                    echo "<a href='" . URLADM . "edit-sits-users/index/" . $this->data['viewSitsUser'][0]['id'] . "' class='btn-warning'>Editar</a> ";
-                    echo "<a href='" . URLADM . "delete-sits-users/index/" . $this->data['viewSitsUser'][0]['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+
+                    if ($this->data['button']['edit_sits_users']) {
+                        echo "<a href='" . URLADM . "edit-sits-users/index/" . $this->data['viewSitsUser'][0]['id'] . "' class='btn-warning'>Editar</a> ";
+                    }
+                    if ($this->data['button']['delete_sits_users']) {
+                        echo "<a href='" . URLADM . "delete-sits-users/index/" . $this->data['viewSitsUser'][0]['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+                    }
                 }
                 ?>
             </div>

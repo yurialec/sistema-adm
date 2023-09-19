@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsAddPage;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -60,6 +61,16 @@ class AddPage
         $this->data['select'] = $listSelect->listSelect();
 
         $this->data['sidebarActive'] = "list-pages";
+
+        $button = [
+            'list_pages' => [
+                'menu_controller' => 'list-pages',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
 
         $loadView = new ConfigView("adms/Views/Pages/AddPage", $this->data);
         $loadView->loadView();

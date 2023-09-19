@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsAddAcessLevel;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -51,6 +52,16 @@ class AddAccessLevel
 
     private function viewAddAcessLevel()
     {
+        $button = [
+            'list_access_levels' => [
+                'menu_controller' => 'list-access-levels',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/AccessLevels/AddAccessLevel", $this->data);
         $loadView->loadView();
     }

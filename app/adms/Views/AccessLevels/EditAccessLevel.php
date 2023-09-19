@@ -19,9 +19,14 @@ if (isset($this->data['form'][0])) {
             <span class="title-content">Editar Nível de Acesso</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-access-levels/index' class='btn-info'>Listar</a> ";
+
+                if ($this->data['button']['list_access_levels']) {
+                    echo "<a href='" . URLADM . "list-access-levels/index' class='btn-info'>Listar</a> ";
+                }
                 if (isset($valorForm['id'])) {
-                    echo "<a href='" . URLADM . "view-access-level/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    if ($this->data['button']['view_access_level']) {
+                        echo "<a href='" . URLADM . "view-access-level/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    }
                 }
                 ?>
             </div>

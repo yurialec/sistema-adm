@@ -13,7 +13,9 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Listar Situação</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "add-sits-users/index' class='btn-success'>Cadastrar</a>";
+                if ($this->data['button']['add_sits_users']) {
+                    echo "<a href='" . URLADM . "add-sits-users/index' class='btn-success'>Cadastrar</a>";
+                }
                 ?>
             </div>
         </div>
@@ -48,9 +50,17 @@ if (!defined('G9C8O7N6N5T4I')) {
                                 <button onclick="actionDropdown(<?php echo $id; ?>)" class="dropdown-btn-action">Ações</button>
                                 <div id="actionDropdown<?php echo $id; ?>" class="dropdown-action-item">
                                     <?php
-                                    echo "<a href='" . URLADM . "view-sits-users/index/$id'>Visualizar</a>";
-                                    echo "<a href='" . URLADM . "edit-sits-users/index/$id'>Editar</a>";
-                                    echo "<a href='" . URLADM . "delete-sits-users/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'>Apagar</a>";
+                                    if ($this->data['button']['view_sits_users']) {
+                                        echo "<a href='" . URLADM . "view-sits-users/index/$id'>Visualizar</a>";
+                                    }
+
+                                    if ($this->data['button']['edit_sits_users']) {
+                                        echo "<a href='" . URLADM . "edit-sits-users/index/$id'>Editar</a>";
+                                    }
+
+                                    if ($this->data['button']['delete_sits_users']) {
+                                        echo "<a href='" . URLADM . "delete-sits-users/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'>Apagar</a>";
+                                    }
                                     ?>
                                 </div>
                             </div>

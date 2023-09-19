@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsViewAccessLevels;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -31,7 +32,7 @@ class ViewAccessLevel
     {
         if (!empty($id)) {
             $this->id = (int) $id;
-            
+
             $viewAccessLevel = new AdmsViewAccessLevels();
             $viewAccessLevel->viewLevel($this->id);
 
@@ -56,6 +57,24 @@ class ViewAccessLevel
      */
     public function viewAccessLevel(): void
     {
+        $button = [
+            'list_access_levels' => [
+                'menu_controller' => 'list-access-levels',
+                'menu_metodo' => 'index'
+            ],
+            'edit_access_level' => [
+                'menu_controller' => 'edit-access-level',
+                'menu_metodo' => 'index'
+            ],
+            'delete_access_level' => [
+                'menu_controller' => 'delete-access-level',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/AccessLevels/ViewAccessLevel", $this->data);
         $loadView->loadView();
     }

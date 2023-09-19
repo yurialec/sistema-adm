@@ -3,6 +3,7 @@
 namespace App\adms\Controllers;
 
 use App\adms\Models\AdmsEditUsers;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -51,6 +52,20 @@ class EditUsers
     {
         $listSelect = new AdmsEditUsers();
         $this->data['select'] = $listSelect->listSelect();
+
+        $button = [
+            'list_users' => [
+                'menu_controller' => 'list-users',
+                'menu_metodo' => 'index'
+            ],
+            'view_users' => [
+                'menu_controller' => 'view-users',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
 
         $loadView = new ConfigView("adms/Views/Users/EditUser", $this->data);
         $loadView->loadView();

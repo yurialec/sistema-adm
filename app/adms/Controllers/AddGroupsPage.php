@@ -8,13 +8,14 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsAddGroupPage;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
  * Controller da página cadastrar novo Usuário
  * @author Yuri <yuri.alec@hotmail.com>
  */
-class AddGroupPage
+class AddGroupsPage
 {
     /**
      * @var array|string|null $data Recebe os dados que devem ser enviados para a view
@@ -57,6 +58,16 @@ class AddGroupPage
 
     private function viewAddGroupPage()
     {
+        $button = [
+            'list_groups_pages' => [
+                'menu_controller' => 'list-groups-pages',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+        
         $loadView = new ConfigView("adms/Views/GroupPages/AddGroupPage", $this->data);
         $loadView->loadView();
     }

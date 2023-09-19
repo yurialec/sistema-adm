@@ -48,6 +48,11 @@ class LoadPgAdm
         }
     }
 
+    /**
+     * Verificar se o metodo existe e carregar a página
+     *
+     * @return void
+     */
     private function loadMetodo(): void
     {
         $classLoad = new $this->classLoad();

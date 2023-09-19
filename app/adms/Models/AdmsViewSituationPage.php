@@ -35,25 +35,12 @@ class AdmsViewSituationPage
         $this->id = $id;
         $viewSitsPg = new AdmsRead();
         $viewSitsPg->fullRead(
-            "SELECT ap.id, ap.controller, ap.metodo, ap.menu_controller,
-                    ap.menu_metodo, ap.name_page, ap.publish, ap.icon,
-                    ap.obs, ap.created, ap.modified,
-                    asp.name AS situation_name,
-                    ac.color AS color_name,
-                    atp.name AS type_pg_name,
-                    atp.type AS type_pg,
-                    agp.name AS group_pg
-                    FROM adms_pages AS ap
-                    INNER JOIN adms_sits_pgs AS asp
-                    ON asp.id = ap.adms_sits_pgs_id
-                        INNER JOIN adms_colors AS ac
-                        ON ac.id = asp.adms_color_id
-                    INNER JOIN adms_types_pgs AS atp
-                    ON atp.id = ap.adms_types_pgs_id
-                    INNER JOIN adms_groups_pgs AS agp
-                    ON agp.id = ap.adms_groups_pgs_id
-                    WHERE ap.id=:id
-                    LIMIT :limit",
+            "SELECT adms_sits_pgs.id, adms_sits_pgs.name, adms_sits_pgs.created, adms_sits_pgs.modified,
+            adms_colors.color AS color
+            FROM adms_sits_pgs
+            INNER JOIN adms_colors ON adms_colors.id = adms_sits_pgs.adms_color_id
+            WHERE adms_sits_pgs.id=:id
+            LIMIT :limit",
             "id={$this->id}&limit=1"
         );
 

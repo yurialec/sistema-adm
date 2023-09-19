@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsViewSituationPage;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -32,7 +33,7 @@ class ViewSituationPage
         if (!empty($id)) {
             $this->id = (int) $id;
             $viewSitsPg = new AdmsViewSituationPage();
-            $viewSitsPg->viewSitsPg($this->id);
+            $viewSitsPg->view($this->id);
 
             if ($viewSitsPg->getResult()) {
                 $this->data['viewSitsPg'] = $viewSitsPg->getResultBd();
@@ -55,6 +56,24 @@ class ViewSituationPage
      */
     public function viewUser(): void
     {
+        $button = [
+            'list_situation_pages' => [
+                'menu_controller' => 'list-situation-pages',
+                'menu_metodo' => 'index'
+            ],
+            'edit_situation_page' => [
+                'menu_controller' => 'edit-situation-page',
+                'menu_metodo' => 'index'
+            ],
+            'delete_situation_page' => [
+                'menu_controller' => 'delete-situation-page',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/SituationPages/viewSituationPages", $this->data);
         $loadView->loadView();
     }

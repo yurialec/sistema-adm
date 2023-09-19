@@ -20,9 +20,13 @@ if (isset($this->data['form'][0])) {
             <span class="title-content">Editar Situação da Página</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-situation-pages/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['list_situation_pages']) {
+                    echo "<a href='" . URLADM . "list-situation-pages/index' class='btn-info'>Listar</a> ";
+                }
                 if (isset($valorForm['id'])) {
-                    echo "<a href='" . URLADM . "view-situation-page/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    if ($this->data['button']['view_situation_page']) {
+                        echo "<a href='" . URLADM . "view-situation-page/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    }
                 }
                 ?>
             </div>

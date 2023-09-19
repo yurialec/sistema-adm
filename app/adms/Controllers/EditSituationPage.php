@@ -3,6 +3,7 @@
 namespace App\adms\Controllers;
 
 use App\adms\Models\AdmsEditSituationPage;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -51,6 +52,20 @@ class EditSituationPage
     {
         $listSelect = new AdmsEditSituationPage();
         $this->data['select'] = $listSelect->listSelect();
+
+        $button = [
+            'list_situation_pages' => [
+                'menu_controller' => 'list-situation-pages',
+                'menu_metodo' => 'index'
+            ],
+            'view_situation_page' => [
+                'menu_controller' => 'view-situation-page',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
 
         $loadView = new ConfigView("adms/Views/SituationPages/EditSituationPage", $this->data);
         $loadView->loadView();

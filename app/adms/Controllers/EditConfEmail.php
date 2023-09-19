@@ -3,6 +3,7 @@
 namespace App\adms\Controllers;
 
 use App\adms\Models\AdmsEditConfEmail;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -49,6 +50,28 @@ class EditConfEmail
 
     private function viewEditConfEMail()
     {
+        $button = [
+            'list_conf_email' => [
+                'menu_controller' => 'list-conf-email',
+                'menu_metodo' => 'index'
+            ],
+            'view_conf_email' => [
+                'menu_controller' => 'view-conf-email',
+                'menu_metodo' => 'index'
+            ],
+            'edit_conf_email_password' => [
+                'menu_controller' => 'edit-conf-email-password',
+                'menu_metodo' => 'index'
+            ],
+            'delete_conf_email' => [
+                'menu_controller' => 'delete-conf-email',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/ConfEmail/EditConfEmail", $this->data);
         $loadView->loadView();
     }

@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsViewSituationPage;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -55,6 +56,24 @@ class ViewPage
      */
     public function viewPage(): void
     {
+        $button = [
+            'list_pages' => [
+                'menu_controller' => 'list-pages',
+                'menu_metodo' => 'index'
+            ],
+            'edit_page' => [
+                'menu_controller' => 'edit-page',
+                'menu_metodo' => 'index'
+            ],
+            'delete_page' => [
+                'menu_controller' => 'delete-page',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/Pages/viewPages", $this->data);
         $loadView->loadView();
     }

@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsListUsers;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 class ListUsers
@@ -40,6 +41,28 @@ class ListUsers
         } else {
             $this->data['listUsers'] = [];
         }
+
+        $button = [
+            'add_users' => [
+                'menu_controller' => 'add-users',
+                'menu_metodo' => 'index'
+            ],
+            'view_users' => [
+                'menu_controller' => 'view-users',
+                'menu_metodo' => 'index'
+            ],
+            'edit_users' => [
+                'menu_controller' => 'edit-users',
+                'menu_metodo' => 'index'
+            ],
+            'delete_users' => [
+                'menu_controller' => 'delete-users',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
 
         $this->data['sidebarActive'] = "list-users";
 

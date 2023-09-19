@@ -12,10 +12,20 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Detalhes da Cor</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-colors/index' class='btn-info'>Listar</a> ";
+
+                if ($this->data['button']['list_colors']) {
+                    echo "<a href='" . URLADM . "list-colors/index' class='btn-info'>Listar</a> ";
+                }
+
                 if (!empty($this->data['viewColor'])) {
-                    echo "<a href='" . URLADM . "edit-color/index/" . $this->data['viewColor'][0]['id'] . "' class='btn-warning'>Editar</a> ";
-                    echo "<a href='" . URLADM . "delete-color/index/" . $this->data['viewColor'][0]['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+
+                    if ($this->data['button']['edit_color']) {
+                        echo "<a href='" . URLADM . "edit-color/index/" . $this->data['viewColor'][0]['id'] . "' class='btn-warning'>Editar</a> ";
+                    }
+
+                    if ($this->data['button']['delete_color']) {
+                        echo "<a href='" . URLADM . "delete-color/index/" . $this->data['viewColor'][0]['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+                    }
                 }
                 ?>
             </div>

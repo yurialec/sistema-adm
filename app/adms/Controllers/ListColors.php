@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsListColors;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 class ListColors
@@ -42,7 +43,29 @@ class ListColors
         }
 
         $this->data['sidebarActive'] = "list-colors";
-        
+
+        $button = [
+            'add_color' => [
+                'menu_controller' => 'add-color',
+                'menu_metodo' => 'index'
+            ],
+            'view_color' => [
+                'menu_controller' => 'view-color',
+                'menu_metodo' => 'index'
+            ],
+            'edit_color' => [
+                'menu_controller' => 'edit-color',
+                'menu_metodo' => 'index'
+            ],
+            'delete_color' => [
+                'menu_controller' => 'delete-color',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/Colors/listColors", $this->data);
         $loadView->loadView();
     }

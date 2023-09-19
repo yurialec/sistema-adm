@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsAddTypePage;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -39,7 +40,7 @@ class AddTypePg
 
         if (!empty($this->dataForm['SendAddTypePage'])) {
             unset($this->dataForm['SendAddTypePage']);
-            
+
             $createTypePage = new AdmsAddTypePage();
             $createTypePage->create($this->dataForm);
 
@@ -57,6 +58,16 @@ class AddTypePg
 
     private function viewAddTypePage()
     {
+        $button = [
+            'list_types_pgs' => [
+                'menu_controller' => 'list-types-pgs',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+        
         $loadView = new ConfigView("adms/Views/TypesPages/AddTypePage", $this->data);
         $loadView->loadView();
     }

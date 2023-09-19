@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsListTypesPgs;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 class ListTypesPgs
@@ -43,6 +44,32 @@ class ListTypesPgs
 
         $this->data['pag'] = $this->page;
         $this->data['sidebarActive'] = "list-types-pgs";
+
+        $button = [
+            'add_type_pg' => [
+                'menu_controller' => 'add-type-pg',
+                'menu_metodo' => 'index'
+            ],
+            'order_type_pgs' => [
+                'menu_controller' => 'order-type-pgs',
+                'menu_metodo' => 'index'
+            ],
+            'view_types_pgs' => [
+                'menu_controller' => 'view-types-pgs',
+                'menu_metodo' => 'index'
+            ],
+            'edit_types_pgs' => [
+                'menu_controller' => 'edit-types-pgs',
+                'menu_metodo' => 'index'
+            ],
+            'delete_types_pgs' => [
+                'menu_controller' => 'delete-types-pgs',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
 
         $loadView = new ConfigView("adms/Views/TypesPages/ListTypesPages", $this->data);
         $loadView->loadView();

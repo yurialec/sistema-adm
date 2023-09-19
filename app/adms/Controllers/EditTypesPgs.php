@@ -3,6 +3,7 @@
 namespace App\adms\Controllers;
 
 use App\adms\Models\AdmsEditTypesPgs;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -49,6 +50,20 @@ class EditTypesPgs
 
     private function viewEditUser()
     {
+        $button = [
+            'list_types_pgs' => [
+                'menu_controller' => 'list-types-pgs',
+                'menu_metodo' => 'index'
+            ],
+            'view_types_pgs' => [
+                'menu_controller' => 'view-types-pgs',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+        
         $loadView = new ConfigView("adms/Views/TypesPages/EditTypesPages", $this->data);
         $loadView->loadView();
     }

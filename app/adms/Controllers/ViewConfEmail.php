@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsViewConfEmail;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -55,6 +56,28 @@ class ViewConfEmail
      */
     public function viewConfEmail(): void
     {
+        $button = [
+            'list_conf_email' => [
+                'menu_controller' => 'list-conf-email',
+                'menu_metodo' => 'index'
+            ],
+            'edit_conf_email' => [
+                'menu_controller' => 'edit-conf-email',
+                'menu_metodo' => 'index'
+            ],
+            'edit_conf_email_password' => [
+                'menu_controller' => 'edit-conf-email-password',
+                'menu_metodo' => 'index'
+            ],
+            'delete_conf_email' => [
+                'menu_controller' => 'delete-conf-email',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+        
         $loadView = new ConfigView("adms/Views/ConfEmail/ViewConfEmail", $this->data);
         $loadView->loadView();
     }

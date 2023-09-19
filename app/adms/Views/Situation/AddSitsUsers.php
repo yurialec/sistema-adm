@@ -15,7 +15,9 @@ if (isset($this->data['form'])) {
             <span class="title-content">Cadastrar Situação</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-sits-users/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['list_sits_users']) {
+                    echo "<a href='" . URLADM . "list-sits-users/index' class='btn-info'>Listar</a> ";
+                }
                 ?>
             </div>
         </div>

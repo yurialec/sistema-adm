@@ -3,6 +3,7 @@
 namespace App\adms\Controllers;
 
 use App\adms\Models\AdmsAddConfEmails;
+use App\adms\Models\Helper\AdmsButton;
 
 if (!defined('G9C8O7N6N5T4I')) {
     header("Location: /");
@@ -59,6 +60,17 @@ class AddConfEmail
     private function viewAddConfEmails(): void
     {
         $this->data['sidebarActive'] = "list-conf-email";
+
+        $button = [
+            'list_conf_email' => [
+                'menu_controller' => 'list-conf-email',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new \Core\ConfigView("adms/Views/ConfEmail/AddConfEmail", $this->data);
         $loadView->loadView();
     }

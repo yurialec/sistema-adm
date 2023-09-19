@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsListPermission;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 class ListPermission
@@ -63,6 +64,17 @@ class ListPermission
     public function viewPermission(): void
     {
         $this->data['sidebarActive'] = "list-access-levels";
+
+        $button = [
+            'list_access_levels' => [
+                'menu_controller' => 'list-access-levels',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/Permissions/ListPermission", $this->data);
         $loadView->loadView();
     }

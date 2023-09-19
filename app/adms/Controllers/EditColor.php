@@ -3,6 +3,7 @@
 namespace App\adms\Controllers;
 
 use App\adms\Models\AdmsEditColor;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -49,6 +50,20 @@ class EditColor
 
     private function viewEditColor()
     {
+        $button = [
+            'list_colors' => [
+                'menu_controller' => 'list-colors',
+                'menu_metodo' => 'index'
+            ],
+            'view_color' => [
+                'menu_controller' => 'view-color',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/Colors/EditColor", $this->data);
         $loadView->loadView();
     }

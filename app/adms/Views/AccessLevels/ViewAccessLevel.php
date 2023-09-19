@@ -15,10 +15,17 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Detalhes do Nível de Acesso</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-access-levels/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['list_access_levels']) {
+                    echo "<a href='" . URLADM . "list-access-levels/index' class='btn-info'>Listar</a> ";
+                }
                 if (!empty($this->data['viewAccessLevel'])) {
-                    echo "<a href='" . URLADM . "edit-access-level/index/" . $this->data['viewAccessLevel'][0]['id'] . "' class='btn-warning'>Editar</a> ";
-                    echo "<a href='" . URLADM . "delete-access-level/index/" . $this->data['viewAccessLevel'][0]['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+                    if ($this->data['button']['edit_access_level']) {
+                        echo "<a href='" . URLADM . "edit-access-level/index/" . $this->data['viewAccessLevel'][0]['id'] . "' class='btn-warning'>Editar</a> ";
+                    }
+
+                    if ($this->data['button']['delete_access_level']) {
+                        echo "<a href='" . URLADM . "delete-access-level/index/" . $this->data['viewAccessLevel'][0]['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+                    }
                 }
                 ?>
             </div>

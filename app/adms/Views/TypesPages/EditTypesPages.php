@@ -19,9 +19,13 @@ if (isset($this->data['form'][0])) {
             <span class="title-content">Editar Tipos de Páginas</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-types-pgs/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['list_types_pgs']) {
+                    echo "<a href='" . URLADM . "list-types-pgs/index' class='btn-info'>Listar</a> ";
+                }
                 if (isset($valorForm['id'])) {
-                    echo "<a href='" . URLADM . "view-types-pgs/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    if ($this->data['button']['view_types_pgs']) {
+                        echo "<a href='" . URLADM . "view-types-pgs/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    }
                 }
                 ?>
             </div>

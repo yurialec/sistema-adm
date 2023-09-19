@@ -3,6 +3,7 @@
 namespace App\adms\Controllers;
 
 use App\adms\Models\AdmsEditAcessLevel;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -49,6 +50,20 @@ class EditAccessLevel
 
     private function viewEditAccessLevel()
     {
+        $button = [
+            'list_access_levels' => [
+                'menu_controller' => 'list-access-levels',
+                'menu_metodo' => 'index'
+            ],
+            'view_access_level' => [
+                'menu_controller' => 'view-access-level',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+        
         $loadView = new ConfigView("adms/Views/AccessLevels/EditAccessLevel", $this->data);
         $loadView->loadView();
     }

@@ -13,7 +13,9 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Listar Cores</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "add-color/index' class='btn-success'>Cadastrar</a>";
+                if ($this->data['button']['add_color']) {
+                    echo "<a href='" . URLADM . "add-color/index' class='btn-success'>Cadastrar</a>";
+                }
                 ?>
             </div>
         </div>
@@ -50,9 +52,18 @@ if (!defined('G9C8O7N6N5T4I')) {
                                 <button onclick="actionDropdown(<?php echo $id; ?>)" class="dropdown-btn-action">Ações</button>
                                 <div id="actionDropdown<?php echo $id; ?>" class="dropdown-action-item">
                                     <?php
-                                    echo "<a href='" . URLADM . "view-color/index/$id'>Visualizar</a>";
-                                    echo "<a href='" . URLADM . "edit-color/index/$id'>Editar</a>";
-                                    echo "<a href='" . URLADM . "delete-color/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'>Apagar</a>";
+                                    if ($this->data['button']['view_color']) {
+                                        echo "<a href='" . URLADM . "view-color/index/$id'>Visualizar</a>";
+                                    }
+
+                                    if ($this->data['button']['edit_color']) {
+                                        echo "<a href='" . URLADM . "edit-color/index/$id'>Editar</a>";
+                                    }
+
+                                    if ($this->data['button']['delete_color']) {
+                                        echo "<a href='" . URLADM . "delete-color/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'>Apagar</a>";
+                                    }
+
                                     ?>
                                 </div>
                             </div>

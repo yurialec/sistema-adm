@@ -9,6 +9,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 
 use App\adms\Models\AdmsAddColor;
 use App\adms\Models\ColorsAdmsAddColor;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -57,6 +58,16 @@ class AddColor
 
     private function viewAddUser()
     {
+        $button = [
+            'list_colors' => [
+                'menu_controller' => 'list-colors',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+        
         $loadView = new ConfigView("adms/Views/Colors/AddColor", $this->data);
         $loadView->loadView();
     }

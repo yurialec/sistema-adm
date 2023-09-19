@@ -3,6 +3,7 @@
 namespace App\adms\Controllers;
 
 use App\adms\Models\AdmsEditGroupPage;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -49,6 +50,20 @@ class EditGroupPage
 
     private function viewEditGroupPage()
     {
+        $button = [
+            'list_groups_pages' => [
+                'menu_controller' => 'list-groups-pages',
+                'menu_metodo' => 'index'
+            ],
+            'view_page' => [
+                'menu_controller' => 'view-page',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/GroupPages/EditGroupPages", $this->data);
         $loadView->loadView();
     }

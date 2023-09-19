@@ -13,7 +13,9 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Listar Situação de Páginas</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "add-situation-page/index' class='btn-success'>Cadastrar</a>";
+                if ($this->data['button']['add_situation_page']) {
+                    echo "<a href='" . URLADM . "add-situation-page/index' class='btn-success'>Cadastrar</a>";
+                }
                 ?>
             </div>
         </div>
@@ -46,9 +48,15 @@ if (!defined('G9C8O7N6N5T4I')) {
                                 <button onclick="actionDropdown(<?php echo $id; ?>)" class="dropdown-btn-action">Ações</button>
                                 <div id="actionDropdown<?php echo $id; ?>" class="dropdown-action-item">
                                     <?php
-                                    echo "<a href='" . URLADM . "view-situation-page/index/$id'>Visualizar</a>";
-                                    echo "<a href='" . URLADM . "edit-situation-page/index/$id'>Editar</a>";
-                                    echo "<a href='" . URLADM . "delete-situation-page/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'>Apagar</a>";
+                                    if ($this->data['button']['view_situation_page']) {
+                                        echo "<a href='" . URLADM . "view-situation-page/index/$id'>Visualizar</a>";
+                                    }
+                                    if ($this->data['button']['edit_situation_page']) {
+                                        echo "<a href='" . URLADM . "edit-situation-page/index/$id'>Editar</a>";
+                                    }
+                                    if ($this->data['button']['delete_situation_page']) {
+                                        echo "<a href='" . URLADM . "delete-situation-page/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'>Apagar</a>";
+                                    }
                                     ?>
                                 </div>
                             </div>

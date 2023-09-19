@@ -14,7 +14,9 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Listar E-mail</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "add-conf-email/index' class='btn-success'>Cadastrar</a>";
+                if ($this->data['button']['add_conf_email']) {
+                    echo "<a href='" . URLADM . "add-conf-email/index' class='btn-success'>Cadastrar</a>";
+                }
                 ?>
             </div>
         </div>
@@ -51,9 +53,17 @@ if (!defined('G9C8O7N6N5T4I')) {
                                 <button onclick="actionDropdown(<?php echo $id; ?>)" class="dropdown-btn-action">Ações</button>
                                 <div id="actionDropdown<?php echo $id; ?>" class="dropdown-action-item">
                                     <?php
-                                    echo "<a href='" . URLADM . "view-conf-email/index/$id'>Visualizar</a>";
-                                    echo "<a href='" . URLADM . "edit-conf-email/index/$id'>Editar</a>";
-                                    echo "<a href='" . URLADM . "delete-conf-email/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'>Apagar</a>";
+                                    if ($this->data['button']['view_conf_email']) {
+                                        echo "<a href='" . URLADM . "view-conf-email/index/$id'>Visualizar</a>";
+                                    }
+
+                                    if ($this->data['button']['edit_conf_email']) {
+                                        echo "<a href='" . URLADM . "edit-conf-email/index/$id'>Editar</a>";
+                                    }
+
+                                    if ($this->data['button']['delete_conf_email']) {
+                                        echo "<a href='" . URLADM . "delete-conf-email/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'>Apagar</a>";
+                                    }
                                     ?>
                                 </div>
                             </div>

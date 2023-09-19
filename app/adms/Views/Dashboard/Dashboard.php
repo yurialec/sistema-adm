@@ -6,6 +6,14 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 ?>
 <div class="wrapper">
+    <div class="content-adm-alert">
+        <?php
+        if (isset($_SESSION['msg'])) {
+            echo $_SESSION['msg'];
+            unset($_SESSION['msg']);
+        }
+        ?>
+    </div>
     <div class="row">
         <div class="box box-first">
             <span class="fa-solid fa-users"></span>

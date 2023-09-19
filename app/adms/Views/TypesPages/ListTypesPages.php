@@ -13,7 +13,9 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Listar Tipos de Páginas</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "add-type-pg/index' class='btn-success'>Cadastrar</a>";
+                if ($this->data['button']['add_type_pg']) {
+                    echo "<a href='" . URLADM . "add-type-pg/index' class='btn-success'>Cadastrar</a>";
+                }
                 ?>
             </div>
         </div>
@@ -48,10 +50,18 @@ if (!defined('G9C8O7N6N5T4I')) {
                                 <button onclick="actionDropdown(<?php echo $id; ?>)" class="dropdown-btn-action">Ações</button>
                                 <div id="actionDropdown<?php echo $id; ?>" class="dropdown-action-item">
                                     <?php
-                                    echo "<a href='" . URLADM . "order-type-pgs/index/$id?pag=" . $this->data['pag'] . "'><i class='fa-solid fa-arrow-up-short-wide'></i> Ordem</a>";
-                                    echo "<a href='" . URLADM . "view-types-pgs/index/$id'><i class='fa-regular fa-eye'></i> Visualizar</a>";
-                                    echo "<a href='" . URLADM . "edit-types-pgs/index/$id'><i class='fa-regular fa-pen-to-square'></i> Editar</a>";
-                                    echo "<a href='" . URLADM . "delete-types-pgs/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'><i class='fa-regular fa-trash-can'></i> Apagar</a>";
+                                    if ($this->data['button']['order_type_pgs']) {
+                                        echo "<a href='" . URLADM . "order-type-pgs/index/$id?pag=" . $this->data['pag'] . "'><i class='fa-solid fa-arrow-up-short-wide'></i> Ordem</a>";
+                                    }
+                                    if ($this->data['button']['view_types_pgs']) {
+                                        echo "<a href='" . URLADM . "view-types-pgs/index/$id'><i class='fa-regular fa-eye'></i> Visualizar</a>";
+                                    }
+                                    if ($this->data['button']['edit_types_pgs']) {
+                                        echo "<a href='" . URLADM . "edit-types-pgs/index/$id'><i class='fa-regular fa-pen-to-square'></i> Editar</a>";
+                                    }
+                                    if ($this->data['button']['delete_types_pgs']) {
+                                        echo "<a href='" . URLADM . "delete-types-pgs/index/$id' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")'><i class='fa-regular fa-trash-can'></i> Apagar</a>";
+                                    }
                                     ?>
                                 </div>
                             </div>

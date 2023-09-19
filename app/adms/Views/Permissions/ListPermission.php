@@ -13,7 +13,9 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Listar Permissões do Nível de Acesso <strong><?php echo $this->data['viewAccessLevel'][0]['name']; ?></strong></span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-access-levels/index' class='btn-info'>Listar Nível de Acesso</a>";
+                if ($this->data['button']['list_access_levels']) {
+                    echo "<a href='" . URLADM . "list-access-levels/index' class='btn-info'>Listar Nível de Acesso</a>";
+                }
                 ?>
             </div>
         </div>

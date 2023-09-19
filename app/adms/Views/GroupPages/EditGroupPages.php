@@ -19,9 +19,13 @@ if (isset($this->data['form'][0])) {
             <span class="title-content">Editar Grupo de Páginas</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-groups-pages/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['list_groups_pages']) {
+                    echo "<a href='" . URLADM . "list-groups-pages/index' class='btn-info'>Listar</a> ";
+                }
                 if (isset($valorForm['id'])) {
-                    echo "<a href='" . URLADM . "view-group-page/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    if ($this->data['button']['view_page']) {
+                        echo "<a href='" . URLADM . "view-group-page/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    }
                 }
                 ?>
             </div>

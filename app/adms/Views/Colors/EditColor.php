@@ -19,9 +19,14 @@ if (isset($this->data['form'][0])) {
             <span class="title-content">Editar Cor</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-colors/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['list_colors']) {
+                    echo "<a href='" . URLADM . "list-colors/index' class='btn-info'>Listar</a> ";
+                }
+
                 if (isset($valorForm['id'])) {
-                    echo "<a href='" . URLADM . "view-color/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    if ($this->data['button']['view_color']) {
+                        echo "<a href='" . URLADM . "view-color/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a><br><br>";
+                    }
                 }
                 ?>
             </div>

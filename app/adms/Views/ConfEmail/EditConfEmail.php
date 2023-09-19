@@ -19,11 +19,22 @@ if (isset($this->data['form'][0])) {
             <span class="title-content">Editar E-mail</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-conf-email/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['list_conf_email']) {
+                    echo "<a href='" . URLADM . "list-conf-email/index' class='btn-info'>Listar</a> ";
+                }
                 if (isset($valorForm['id'])) {
-                    echo "<a href='" . URLADM . "view-conf-email/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a> ";
-                    echo "<a href='" . URLADM . "edit-conf-email-password/index/" . $valorForm['id'] . "' class='btn-warning'>Editar Senha</a> ";
-                    echo "<a href='" . URLADM . "delete-conf-email/index/" . $valorForm['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+
+                    if ($this->data['button']['view_conf_email']) {
+                        echo "<a href='" . URLADM . "view-conf-email/index/" . $valorForm['id'] . "' class='btn-primary'>Visualizar</a> ";
+                    }
+
+                    if ($this->data['button']['edit_conf_email_password']) {
+                        echo "<a href='" . URLADM . "edit-conf-email-password/index/" . $valorForm['id'] . "' class='btn-warning'>Editar Senha</a> ";
+                    }
+
+                    if ($this->data['button']['delete_conf_email']) {
+                        echo "<a href='" . URLADM . "delete-conf-email/index/" . $valorForm['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+                    }
                 }
                 ?>
             </div>

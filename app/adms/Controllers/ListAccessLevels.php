@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsListAcessLevels;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 class ListAccessLevels
@@ -44,6 +45,40 @@ class ListAccessLevels
 
         $this->data['pag'] = $this->page;
         $this->data['sidebarActive'] = "list-access-levels";
+
+        $button = [
+            'add_access_level' => [
+                'menu_controller' => 'add-access-level',
+                'menu_metodo' => 'index'
+            ],
+            'sync_pages_levels' => [
+                'menu_controller' => 'sync-pages-levels',
+                'menu_metodo' => 'index'
+            ],
+            'view_access_level' => [
+                'menu_controller' => 'view-access-level',
+                'menu_metodo' => 'index'
+            ],
+            'edit_access_level' => [
+                'menu_controller' => 'edit-access-level',
+                'menu_metodo' => 'index'
+            ],
+            'delete_access_level' => [
+                'menu_controller' => 'delete-access-level',
+                'menu_metodo' => 'index'
+            ],
+            'list_permission' => [
+                'menu_controller' => 'list-permission',
+                'menu_metodo' => 'index'
+            ],
+            'order_access_level' => [
+                'menu_controller' => 'order-access-level',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
 
         $loadView = new ConfigView("adms/Views/AccessLevels/ListAccessLevels", $this->data);
         $loadView->loadView();

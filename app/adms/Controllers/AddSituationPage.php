@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsAddSituationPage;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -58,6 +59,16 @@ class AddSituationPage
     {
         $listSelect = new AdmsAddSituationPage();
         $this->data['select'] = $listSelect->listSelect();
+        
+        $button = [
+            'list_situation_pages' => [
+                'menu_controller' => 'list-situation-pages',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
 
         $loadView = new ConfigView("adms/Views/SituationPages/AddSituation", $this->data);
         $loadView->loadView();

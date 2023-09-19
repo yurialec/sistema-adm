@@ -14,7 +14,9 @@ if (isset($this->data['form'])) {
             <span class="title-content">Cadastrar Nível de Acesso</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-access-levels/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['list_access_levels']) {
+                    echo "<a href='" . URLADM . "list-access-levels/index' class='btn-info'>Listar</a> ";
+                }
                 ?>
             </div>
         </div>

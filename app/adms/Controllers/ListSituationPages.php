@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsListSituationPages;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 class ListSituationPages
@@ -42,6 +43,28 @@ class ListSituationPages
         }
 
         $this->data['sidebarActive'] = "list-situation-pages";
+
+        $button = [
+            'add_situation_page' => [
+                'menu_controller' => 'add-situation-page',
+                'menu_metodo' => 'index'
+            ],
+            'view_situation_page' => [
+                'menu_controller' => 'view-situation-page',
+                'menu_metodo' => 'index'
+            ],
+            'edit_situation_page' => [
+                'menu_controller' => 'edit-situation-page',
+                'menu_metodo' => 'index'
+            ],
+            'delete_situation_page' => [
+                'menu_controller' => 'delete-situation-page',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
 
         $loadView = new ConfigView("adms/Views/SituationPages/ListSituationPages", $this->data);
         $loadView->loadView();

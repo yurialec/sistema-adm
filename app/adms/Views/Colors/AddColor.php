@@ -14,7 +14,9 @@ if (isset($this->data['form'])) {
             <span class="title-content">Cadastrar Cor</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-colors/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['list_colors']) {
+                    echo "<a href='" . URLADM . "list-colors/index' class='btn-info'>Listar</a> ";
+                }
                 ?>
             </div>
         </div>

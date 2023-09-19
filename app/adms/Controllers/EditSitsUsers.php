@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsEditSitsUsers;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -56,6 +57,20 @@ class EditSitsUsers
     {
         $listSelect = new AdmsEditSitsUsers();
         $this->data['select'] = $listSelect->listSelect();
+
+        $button = [
+            'list_sits_users' => [
+                'menu_controller' => 'list-sits-users',
+                'menu_metodo' => 'index'
+            ],
+            'view_sits_users' => [
+                'menu_controller' => 'view-sits-users',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
 
         $loadView = new ConfigView("adms/Views/Situation/EditSitsUser", $this->data);
         $loadView->loadView();

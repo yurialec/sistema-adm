@@ -15,10 +15,18 @@ if (!defined('G9C8O7N6N5T4I')) {
             <span class="title-content">Detalhes do Grupo de Página</span>
             <div class="top-list-right">
                 <?php
-                echo "<a href='" . URLADM . "list-groups-pages/index' class='btn-info'>Listar</a> ";
+                if ($this->data['button']['view_group_page']) {
+                    echo "<a href='" . URLADM . "list-groups-pages/index' class='btn-info'>Listar</a> ";
+                }
+
                 if (!empty($this->data['viewGroupsPages'])) {
-                    echo "<a href='" . URLADM . "edit-group-page/index/" . $this->data['viewGroupsPages'][0]['id'] . "' class='btn-warning'>Editar</a> ";
-                    echo "<a href='" . URLADM . "delete-group-page/index/" . $this->data['viewGroupsPages'][0]['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+                    if ($this->data['button']['edit_group_page']) {
+                        echo "<a href='" . URLADM . "edit-group-page/index/" . $this->data['viewGroupsPages'][0]['id'] . "' class='btn-warning'>Editar</a> ";
+                    }
+
+                    if ($this->data['button']['delete_group_page']) {
+                        echo "<a href='" . URLADM . "delete-group-page/index/" . $this->data['viewGroupsPages'][0]['id'] . "' onclick='return confirm(\"Tem certeza que deseja excluir este registro?\")' class='btn-danger'>Apagar</a> ";
+                    }
                 }
                 ?>
             </div>

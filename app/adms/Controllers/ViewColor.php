@@ -8,6 +8,7 @@ if (!defined('G9C8O7N6N5T4I')) {
 }
 
 use App\adms\Models\AdmsViewColors;
+use App\adms\Models\Helper\AdmsButton;
 use Core\ConfigView;
 
 /**
@@ -56,6 +57,24 @@ class ViewColor
      */
     public function viewColor(): void
     {
+        $button = [
+            'list_colors' => [
+                'menu_controller' => 'list-colors',
+                'menu_metodo' => 'index'
+            ],
+            'edit_color' => [
+                'menu_controller' => 'edit-color',
+                'menu_metodo' => 'index'
+            ],
+            'delete_color' => [
+                'menu_controller' => 'delete-color',
+                'menu_metodo' => 'index'
+            ]
+        ];
+
+        $listButtons = new AdmsButton;
+        $this->data['button'] = $listButtons->buttonPermission($button);
+
         $loadView = new ConfigView("adms/Views/Colors/viewColor", $this->data);
         $loadView->loadView();
     }

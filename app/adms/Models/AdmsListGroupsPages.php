@@ -38,7 +38,7 @@ class AdmsListGroupsPages
         return $this->resultPg;
     }
 
-    public function listTypesPgs(int $page = null): void
+    public function listGroupsPages(int $page = null): void
     {
         $this->page = (int) $page ? $page : 1;
 
